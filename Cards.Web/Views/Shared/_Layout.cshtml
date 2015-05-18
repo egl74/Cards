@@ -1,13 +1,23 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <head>
+        @{
+            var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+        }
+        @helper selected(string c, string culture)
+{
+            if (c == culture)
+            {
+                @:checked="checked"
+            }
+        }
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
 
-</head>
+    </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -21,9 +31,22 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink(Resource.Home, "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-default">
+                    @using (Html.BeginForm("SetCulture", "Base"))
+                    {
+                        <div class="form-inline">
+                            <label class="radio-inline">
+                                <input type="radio" id="en-us" class="rg" value="en-us" name="culture" @selected("en-US", culture) checked="checked">EN
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" id="ru" class="rg" value="ru" @selected("ru", culture) name="culture">RU
+                            </label>
+                        </div>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -36,9 +59,21 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            (function ($) {
+                $(".rg").click(function () {
+                    $(this).parents("form").submit(); // post form
+                });
+
+            });
+        });
+    </script>
+    
 </body>
 </html>
