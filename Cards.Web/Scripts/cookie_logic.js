@@ -52,6 +52,7 @@ function changeLanguage(value) {
         },
         success: function (data) {
             //$('#container').html(data);
+            //location.reload();
         }
     });
 }

@@ -1,0 +1,217 @@
+/* bootstrap 3 helpers */
+
+.navbar-form input, .form-inline input {
+    width: auto;
+}
+
+/* custom theme + Bootstrap resets */
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400');
+
+header {
+    min-height: 180px;
+    margin-bottom: 5px;
+}
+
+.affix {
+    position: static;
+}
+
+body {
+    font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
+    font-weight: 300;
+    color: #676767;
+    background-color: #efefef;
+}
+
+a, a:hover {
+    /*color:#77CCDD;*/
+    color: #f0ad4e;
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: #333;
+    color: #ffffff;
+    border-radius: 0;
+    margin-bottom: 0px;
+}
+
+.navbar2 {
+    background-color: #555;
+    color: #ffffff;
+    border-radius: 0;
+}
+
+.navbar-nav > li > a {
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+    /*border-left: 1px solid #66BBCC;*/
+    border-left: 1px solid #eee;
+}
+
+.navbar-nav > li:last-child > a {
+    /*border-right:1px solid #66BBCC;*/
+    border-right: 1px solid #eee;
+}
+
+.navbar-nav li a:hover {
+    /*background-color: #66BBCC;*/
+    background-color: #555;
+}
+
+.navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus {
+    color: #000;
+    opacity: .9;
+}
+
+.navbar-brand {
+    color: #fff;
+}
+
+.accordion-group {
+    border-width: 0;
+}
+
+.dropdown-menu {
+    min-width: 250px;
+}
+
+.caret {
+    color: #fff;
+}
+
+.navbar-toggle {
+    color: #fff;
+    border-width: 0;
+}
+
+    .navbar-toggle:hover {
+        background-color: #fff;
+    }
+
+.panel, .panel-heading {
+    border-radius: 0;
+    border-width: 0;
+    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+}
+
+.thumbnail {
+    margin-bottom: 8px;
+    border-radius: 0;
+}
+
+.well {
+    border-radius: 0;
+}
+
+.accordion-heading .accordion-toggle, .accordion-inner, .nav-stacked li > a {
+    padding-left: 1px;
+}
+
+footer {
+    height: 50px;
+    background-color: #dfdfdf;
+    color: #888;
+    margin-top: 20px;
+}
+
+
+
+/* SWITCHERS */
+
+.onoffswitch {
+    position: relative;
+    width: 70px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+    display: none;
+}
+
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #666666;
+    border-radius: 30px;
+}
+
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s;
+    -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s;
+    transition: margin 0.3s ease-in 0s;
+}
+
+    .onoffswitch-inner:before, .onoffswitch-inner:after {
+        display: block;
+        float: left;
+        width: 50%;
+        height: 30px;
+        padding: 0;
+        line-height: 30px;
+        font-size: 14px;
+        color: white;
+        font-family: Trebuchet, Arial, sans-serif;
+        font-weight: bold;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: 30px;
+        box-shadow: 0px 15px 0px rgba(0,0,0,0.08) inset;
+    }
+
+    .onoffswitch-inner:before {
+        content: "EN";
+        padding-left: 10px;
+        background-color: #4D4D4D;
+        color: #FFFFFF;
+        border-radius: 30px 0 0 30px;
+    }
+
+    .onoffswitch-inner:after {
+        content: "RU";
+        padding-right: 10px;
+        background-color: #4D4D4D;
+        color: #FFFFFF;
+        text-align: right;
+        border-radius: 0 30px 30px 0;
+    }
+
+.onoffswitch-switch {
+    display: block;
+    width: 30px;
+    margin: 0px;
+    background: #FFFFFF;
+    border: 2px solid #666666;
+    border-radius: 30px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 36px;
+    -moz-transition: all 0.3s ease-in 0s;
+    -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s;
+    transition: all 0.3s ease-in 0s;
+    background-image: -moz-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+    background-image: -webkit-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+    background-image: -o-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+    background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+    box-shadow: 0 1px 1px white inset;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
