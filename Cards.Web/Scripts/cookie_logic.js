@@ -2,10 +2,12 @@
     var culture = getCookie('culture');
     if (culture === "ru") {
         document.getElementById("ru").valueOf().checked = "checked";
+        changeLanguage(culture);
         return;
     }
     if (culture === "en-US") {
         document.getElementById("en-us").valueOf().checked = "checked";
+        changeLanguage(culture);
         return;
     }
     if (culture === null) {
@@ -19,6 +21,7 @@ function setCookie(name, value) {
     date = new Date();
     date.setYear(date.getYear + 1);
     document.cookie = name + "=" + escape(value) + "; expires=" + date.toUTCString();
+    changeLanguage(value);
 }
 
 function getCookie(name) {
@@ -39,4 +42,16 @@ function getCookie(name) {
         }
     }
     return (setStr);
+}
+
+function changeLanguage(value) {
+    $.ajax({
+        url: '/Base/SetCulture',
+        data: {
+            'culture': value
+        },
+        success: function (data) {
+            //$('#container').html(data);
+        }
+    });
 }
