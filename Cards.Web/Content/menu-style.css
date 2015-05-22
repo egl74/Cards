@@ -7,15 +7,6 @@
 /* custom theme + Bootstrap resets */
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400');
 
-header {
-    min-height: 180px;
-    margin-bottom: 5px;
-}
-
-.affix {
-    position: static;
-}
-
 body {
     font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
     font-weight: 300;
@@ -40,6 +31,7 @@ a, a:hover {
     background-color: #555;
     color: #ffffff;
     border-radius: 0;
+    height: 40px;
 }
 
 .navbar-nav > li > a {
@@ -50,10 +42,20 @@ a, a:hover {
     border-left: 1px solid #eee;
 }
 
-.navbar-nav > li:last-child > a {
-    /*border-right:1px solid #66BBCC;*/
-    border-right: 1px solid #eee;
+.navbar-nav > li > div {
+    padding-top: 7px;
+    /*padding-bottom: 10px;
+    line-height: 20px;*/
 }
+
+.navbar-nav > li {
+    vertical-align: auto;
+}
+
+    .navbar-nav > li:last-child > a {
+        /*border-right:1px solid #66BBCC;*/
+        border-right: 1px solid #eee;
+    }
 
 .navbar-nav li a:hover {
     /*background-color: #66BBCC;*/
@@ -69,57 +71,19 @@ a, a:hover {
     color: #fff;
 }
 
-.accordion-group {
-    border-width: 0;
-}
 
-.dropdown-menu {
-    min-width: 250px;
-}
 
-.caret {
-    color: #fff;
-}
+/* ----- FOOTER ----- */
 
-.navbar-toggle {
-    color: #fff;
-    border-width: 0;
-}
-
-    .navbar-toggle:hover {
-        background-color: #fff;
-    }
-
-.panel, .panel-heading {
-    border-radius: 0;
-    border-width: 0;
-    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
-}
-
-.thumbnail {
-    margin-bottom: 8px;
-    border-radius: 0;
-}
-
-.well {
-    border-radius: 0;
-}
-
-.accordion-heading .accordion-toggle, .accordion-inner, .nav-stacked li > a {
-    padding-left: 1px;
-}
-
-footer {
-    height: 50px;
-    background-color: #dfdfdf;
-    color: #888;
-    margin-top: 20px;
+.container-footer {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 
 
-/* SWITCHERS */
+/* ----- SWITCHERS ----- */
 
 .onoffswitch {
     position: relative;
@@ -138,7 +102,7 @@ footer {
     overflow: hidden;
     cursor: pointer;
     border: 2px solid #666666;
-    border-radius: 30px;
+    border-radius: 20px; /**/
 }
 
 .onoffswitch-inner {
@@ -155,9 +119,9 @@ footer {
         display: block;
         float: left;
         width: 50%;
-        height: 30px;
+        height: 20px; /**/
         padding: 0;
-        line-height: 30px;
+        line-height: 20px; /**/
         font-size: 14px;
         color: white;
         font-family: Trebuchet, Arial, sans-serif;
@@ -165,7 +129,7 @@ footer {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        border-radius: 30px;
+        border-radius: 20px; /**/
         box-shadow: 0px 15px 0px rgba(0,0,0,0.08) inset;
     }
 
@@ -174,7 +138,7 @@ footer {
         padding-left: 10px;
         background-color: #4D4D4D;
         color: #FFFFFF;
-        border-radius: 30px 0 0 30px;
+        border-radius: 20px 0 0 20px; /**/
     }
 
     .onoffswitch-inner:after {
@@ -183,20 +147,20 @@ footer {
         background-color: #4D4D4D;
         color: #FFFFFF;
         text-align: right;
-        border-radius: 0 30px 30px 0;
+        border-radius: 0 20px 20px 0; /**/
     }
 
 .onoffswitch-switch {
     display: block;
-    width: 30px;
-    margin: 0px;
+    width: 23px; /**/
+    margin: 0px; /**/
     background: #FFFFFF;
     border: 2px solid #666666;
-    border-radius: 30px;
+    border-radius: 20px; /**/
     position: absolute;
-    top: 0;
+    top: 7px;
     bottom: 0;
-    right: 36px;
+    right: 46px;
     -moz-transition: all 0.3s ease-in 0s;
     -webkit-transition: all 0.3s ease-in 0s;
     -o-transition: all 0.3s ease-in 0s;

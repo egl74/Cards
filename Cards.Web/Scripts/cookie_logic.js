@@ -1,26 +1,32 @@
 ﻿function initLanguage() {
     var culture = getCookie('culture');
     if (culture === "ru") {
-        document.getElementById("ru").valueOf().checked = "checked";
+        document.getElementById("langonoffswitch").valueOf().checked = false;
         changeLanguage(culture);
         return;
     }
     if (culture === "en-US") {
-        document.getElementById("en-us").valueOf().checked = "checked";
+        document.getElementById("langonoffswitch").valueOf().checked = true;
         changeLanguage(culture);
         return;
     }
     if (culture === null) {
-        setCookie('culture', 'en-US');
-        document.getElementById("en-us").valueOf().checked = "checked";
+        document.getElementById("langonoffswitch").valueOf().checked = true;
+        setCookie();
         return;
     }
 }
 
-function setCookie(name, value) {
+function setCookie() {
+    var value = "";
     date = new Date();
     date.setYear(date.getYear + 1);
-    document.cookie = name + "=" + escape(value) + "; expires=" + date.toUTCString();
+    if (document.getElementById("langonoffswitch").valueOf().checked) {
+        value = "en-US";
+    } else {
+        value = "ru";
+    }
+    document.cookie = "culture=" + escape(value) + "; expires=" + date.toUTCString();
     changeLanguage(value);
 }
 
