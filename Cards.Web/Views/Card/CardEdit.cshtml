@@ -1,8 +1,8 @@
 ﻿@{
-    ViewBag.Title = "CardEdit";
+    ViewBag.Title = "Card Edit";
 }
 
-<h2>Создание визитки</h2>
+<h2>Выберите шаблон</h2>
 
 <canvas id="canv1" class="canv1">
     Обновите браузер. Необходимо, чтобы он поддерживал HTML5
@@ -18,7 +18,16 @@
     <br>
 </div>
 
-<link href="~/Content/generalCardEditStyle.css" rel="stylesheet" />
+<style type="text/css">
+    h2 {
+        margin-left: 30px;
+    }
+    canvas {
+        border: 2px solid rgba(85, 85, 85, 0.1);
+        margin: 20px auto 0 auto;
+        display: block;
+    }
+</style>
 <script src="~/Scripts/cardsLogic/cardInitLogic.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     initCanvas();

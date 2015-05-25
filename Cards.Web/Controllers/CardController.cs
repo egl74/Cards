@@ -6,16 +6,21 @@ using System.Web.Mvc;
 
 namespace Cards.Web.Controllers
 {
-    public class HomeController : BaseController
+    public class CardController : Controller
     {
+        // GET: Card
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult MainManageCards()
         {
-            ViewBag.Message = "Your application description page.";
+            return View();
+        }
+
+        public ActionResult CardEdit()
+        {
             return View();
         }
     }

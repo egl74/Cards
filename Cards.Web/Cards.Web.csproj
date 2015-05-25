@@ -162,7 +162,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\FakeController.cs" />
+    <Compile Include="Controllers\CardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -185,7 +185,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\generalCardEditStyle.css" />
+    <Content Include="Content\Images\newCard-btn.png" />
+    <Content Include="Content\Images\seeMyCard-btn.png" />
     <Content Include="Content\menu-style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -244,18 +245,17 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\ViewProfile.cshtml" />
-    <Content Include="Views\Home\CardEdit.cshtml" />
+    <Content Include="Views\Card\CardEdit.cshtml" />
+    <Content Include="Views\Card\MainManageCards.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Fake\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505141610306_Initial.resx">
