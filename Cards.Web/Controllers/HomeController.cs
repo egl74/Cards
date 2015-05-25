@@ -18,5 +18,10 @@ namespace Cards.Web.Controllers
             ViewBag.Message = "Your application description page.";
             return View();
         }
+
+        public ActionResult CardEdit()
+        {
+            return View();
+        }
     }
 }

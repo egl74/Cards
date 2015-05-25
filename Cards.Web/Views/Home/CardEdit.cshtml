@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "CardEdit";
+}
+
+<h2>Создание визитки</h2>
+
+<canvas id="canv1" class="canv1">
+    Обновите браузер. Необходимо, чтобы он поддерживал HTML5
+</canvas>
+
+<div style="z-index: 5; position: absolute;
+             background-color: darkorange; opacity: 0.7;
+             text-align: right;
+             top: 15%; right: 10%;">
+    x: <input style="width: 100px;" type="text" name="coordx" id="coordx" value="" />
+    <br>
+    y: <input style="width: 100px;" type="text" name="coordy" id="coordy" value="" />
+    <br>
+</div>
+
+<link href="~/Content/generalCardEditStyle.css" rel="stylesheet" />
+<script src="~/Scripts/cardsLogic/cardInitLogic.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    initCanvas();
+</script>
