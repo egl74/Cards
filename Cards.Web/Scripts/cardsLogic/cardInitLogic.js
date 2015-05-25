@@ -1,25 +1,28 @@
 ﻿function initCanvas() {
-    x1 = window.innerWidth / 2 - 9100 / 2;
-    y1 = window.innerHeight / 2 - 350 / 2;
+
+    width = 4090;
+    height = 330;
 
     buffer = document.createElement('canvas');
-    buffer.width = 9100;
-    buffer.height = 350;
+    buffer.width = width;
+    buffer.height = height;
     buffer.context = buffer.getContext('2d');
     buffer.context.fillStyle = '#e386af';
     for (i = 0; i < 15; i++) {
-        buffer.context.fillRect((i * 600) + 50, 25, 550, 300);
+        if (i % 2 === 0) {
+            buffer.context.fillRect((i/2 * 272) + 10, 10, 262, 150);
+        } else {
+            buffer.context.fillRect(((i-1)/2 * 272) + 10, 170, 262, 150);
+        }
     }
 
-    width = Math.floor(window.innerWidth*.8);
-    height = 350;
     canvas = document.getElementById("canv1");
     context = canvas.getContext("2d");
-    canvas.width = width;
+    canvas.width = Math.floor(window.innerWidth * .8);
     canvas.height = height;
 
     drag = false; // переменная истинная когда зажата кнопка мыши
-    dragRect = new Shape(x1, y1);
+    dragRect = new Shape(0, 0);
     canvas.onmousedown = mouseDown;
     setInterval(draw, 1000 / 60);
 }
@@ -28,42 +31,45 @@ function draw() {
     dragRect.draw();
 }
 // Класс задающий прямоугольник
-function Shape(topX, topY) {
+function Shape(topX) {
     this.x = topX;
-    this.y = topY;
-    this.height = 350; // Высота
-    this.width = 9100; // Ширина
+    this.height = height; // Высота
+    this.width = width; // Ширина
     this.offsetX = 0; //куда в области фигуры был произведен клик
-    this.offsetY = 0;
     this.draw = function () // Метод рисующий прямоугольник
     {
         document.getElementById('coordx').value = this.x;
-        document.getElementById('coordy').value = this.y;
+        document.getElementById('coordy').value = 0;
 
-        context.clearRect(this.x, this.y, this.width, this.height);
-        context.drawImage(buffer, this.x, this.y, this.width, this.height);
+        if (this.x > 0) {
+            this.x = 0;
+        }
+        if (this.x < -1400) {
+            this.x = -1400;
+        }
+
+        context.clearRect(this.x, 0, this.width, this.height);
+        context.drawImage(buffer, this.x, 0, this.width, this.height);
     }
 }
 // Метод срабатывающий на нажатие кнопки мыши
 function mouseDown(evt) {
     var mouseX = evt.pageX - canvas.offsetLeft;
-    var mouseY = evt.pageY - canvas.offsetTop;
-    if (mouseX < dragRect.x + dragRect.width && mouseX > dragRect.x && mouseY < dragRect.y + dragRect.height && mouseY > dragRect.y) {
+    document.getElementById('coordmx').value = mouseX;
+    document.getElementById('coordmy').value = 0;
+    if (mouseX < dragRect.x + dragRect.width && mouseX > dragRect.x) {
         drag = true;
         dragRect.offsetX = mouseX - dragRect.x + 8;
-        dragRect.offsetY = mouseY - dragRect.y + 8;
         canvas.onmousemove = mouseMove;
         canvas.onmouseup = mouseUp;
     }
 }
 // Движение мыши
 function mouseMove(evt) {
-    var mouseY = evt.pageY;
-    var mouseX = evt.pageX;
+    var mouseX = evt.pageX - canvas.offsetLeft;
     if (drag) {
         // Изменение координат фигуры
         dragRect.x = mouseX - dragRect.offsetX;
-        dragRect.y = mouseY - dragRect.offsetY;
     }
 }
 // Если отпущина кнопка мыши, то переменная drag принимает ложное значение
