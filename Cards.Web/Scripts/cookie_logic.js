@@ -26,7 +26,7 @@ function setCookie() {
     } else {
         value = "ru";
     }
-    document.cookie = "culture=" + escape(value) + "; expires=" + date.toUTCString();
+    document.cookie = "culture=" + escape(value) + "; expires=" + date.toUTCString() + "; path=" + escape("/");
     changeLanguage(value);
 }
 
