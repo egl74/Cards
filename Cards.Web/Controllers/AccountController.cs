@@ -157,6 +157,12 @@ namespace Cards.Web.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult ViewProfile()
+        {
+            return View();
+        }
+
         //
         // POST: /Account/ForgotPassword
         [HttpPost]
