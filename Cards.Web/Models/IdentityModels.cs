@@ -13,14 +13,14 @@ namespace Cards.Web.Models
         public User()
         {
             this.Cards = new HashSet<Card>();
-            this.Infos = new HashSet<Info>();
+            this.Infoes = new HashSet<Info>();
         }
 
         public bool IsAdmin { get; set; }
         public bool IsBlocked { get; set; }
 
         public virtual ICollection<Card> Cards { get; set; }
-        public virtual ICollection<Info> Infos { get; set; }
+        public virtual ICollection<Info> Infoes { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
@@ -36,7 +36,7 @@ namespace Cards.Web.Models
     {
         public Info()
         {
-            this.CardInfos = new HashSet<CardInfo>();
+            this.CardInfoes = new HashSet<CardInfo>();
         }
 
         public int Id { get; set; }
@@ -45,7 +45,7 @@ namespace Cards.Web.Models
         public string Content { get; set; }
         public string Comment { get; set; }
 
-        public virtual ICollection<CardInfo> CardInfos { get; set; }
+        public virtual ICollection<CardInfo> CardInfoes { get; set; }
         public virtual User User { get; set; }
     }
 
@@ -53,7 +53,7 @@ namespace Cards.Web.Models
     {
         public Card()
         {
-            this.CardInfos = new HashSet<CardInfo>();
+            this.CardInfoes = new HashSet<CardInfo>();
         }
 
         public int Id { get; set; }
@@ -63,7 +63,7 @@ namespace Cards.Web.Models
         public int Rating { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<CardInfo> CardInfos { get; set; }
+        public virtual ICollection<CardInfo> CardInfoes { get; set; }
     }
 
     public partial class CardInfo
@@ -84,6 +84,10 @@ namespace Cards.Web.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public virtual DbSet<Card> Cards { get; set; }
+        public virtual DbSet<Info> Infoes { get; set; }
+        public virtual DbSet<CardInfo> CardInfoes { get; set; }
 
         public static ApplicationDbContext Create()
         {

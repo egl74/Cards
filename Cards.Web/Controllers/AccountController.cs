@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Cards.Web.Helpers;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -160,7 +161,62 @@ namespace Cards.Web.Controllers
         [Authorize]
         public ActionResult ViewProfile()
         {
-            return View();
+            string currentUserId = User.Identity.GetUserId();
+            var model = Context.Infoes.Where(i => i.UserId == currentUserId);
+            return View(model);
+        }
+
+        [Authorize]
+        public async Task<JsonResult> AddInfo(Info item)
+        {
+            try
+            {
+                item.UserId = User.Identity.GetUserId();
+                var added = Context.Infoes.Add(item);
+                await Context.SaveChangesAsync();
+                return Json(added);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        [Authorize]
+        public async Task<JsonResult> EditInfo(Info item)
+        {
+            try
+            {
+                var currentUser = User.Identity.GetUserId();
+                var edit = Context.Infoes.FirstOrDefault(i => i.Id == item.Id && i.UserId == currentUser);
+                if (edit == null) throw new Exception();
+                edit.Content = item.Content;
+                edit.Comment = item.Comment;
+                edit.Type = item.Type;
+                await Context.SaveChangesAsync();
+                return Json(edit);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        [Authorize]
+        public async Task<JsonResult> DeleteInfo(Info item)
+        {
+            try
+            {
+                var currentUser = User.Identity.GetUserId();
+                var x = (from i in Context.Infoes where i.Id == item.Id && i.UserId == currentUser select i).FirstOrDefault();
+                Context.Infoes.Remove(x);
+                await Context.SaveChangesAsync();
+                return Json(true);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         //

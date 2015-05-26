@@ -117,43 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewInfo" xml:space="preserve">
-    <value>Добавить новую информацию</value>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Отмена</value>
-  </data>
-  <data name="Comment" xml:space="preserve">
-    <value>Комментрарий</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Редактировать</value>
-  </data>
-  <data name="Field" xml:space="preserve">
-    <value>Поле</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Главная</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Войти</value>
-  </data>
-  <data name="ProfileIsEmpty" xml:space="preserve">
-    <value>Профиль пуст</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Зарегистрироваться</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Сохранить</value>
-  </data>
-  <data name="SelectType" xml:space="preserve">
-    <value>Выберите тип</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Тип</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>
