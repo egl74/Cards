@@ -19,7 +19,7 @@ namespace Cards.Web.Controllers
             return View();
         }
 
-        public ActionResult CardEdit()
+        public ActionResult CardTemplates()
         {
             return View();
         }

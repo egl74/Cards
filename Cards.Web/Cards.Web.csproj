@@ -209,7 +209,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\cardsLogic\cardEditLogic.js" />
+    <Content Include="Scripts\cardsLogic\cardTemplatesLogic.js" />
     <Content Include="Scripts\coffee-script.js" />
     <Content Include="Scripts\cookie_logic.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -260,7 +260,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\ViewProfile.cshtml" />
-    <Content Include="Views\Card\CardEdit.cshtml" />
+    <Content Include="Views\Card\CardTemplates.cshtml" />
     <Content Include="Views\Card\MainManageCards.cshtml" />
   </ItemGroup>
   <ItemGroup>
