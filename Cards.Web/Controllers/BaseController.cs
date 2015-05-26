@@ -3,6 +3,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Cards.Web.Helpers;
+using Cards.Web.Models;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace Cards.Web.Controllers
@@ -11,6 +12,7 @@ namespace Cards.Web.Controllers
     {
         protected ApplicationSignInManager _signInManager;
         protected ApplicationUserManager _userManager;
+        protected readonly ApplicationDbContext Context = new ApplicationDbContext();
 
         public BaseController()
         {

@@ -174,6 +174,10 @@
     <Compile Include="Migrations\201505141610306_Initial.Designer.cs">
       <DependentUpon>201505141610306_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505261404062_Infoes.cs" />
+    <Compile Include="Migrations\201505261404062_Infoes.Designer.cs">
+      <DependentUpon>201505261404062_Infoes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -200,6 +204,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -260,6 +265,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505141610306_Initial.resx">
       <DependentUpon>201505141610306_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505261404062_Infoes.resx">
+      <DependentUpon>201505261404062_Infoes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
