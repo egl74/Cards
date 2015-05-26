@@ -7,6 +7,7 @@
 <canvas id="canv1" class="canv1">
     Обновите браузер. Необходимо, чтобы он поддерживал HTML5
 </canvas>
+<input id="Button1" type="button" value="Далее" class="btn btn-success" />
 
 <div style="z-index: 5; position: absolute;
              background-color: darkorange; opacity: 0.7;
@@ -14,7 +15,13 @@
              top: 15%; right: 10%;">
     x: <input style="width: 100px;" type="text" name="coordx" id="coordx" value="" />
     <br>
-    y: <input style="width: 100px;" type="text" name="coordy" id="coordy" value="" />
+    mouseX: <input style="width: 100px;" type="text" name="coordmx" id="coordmx" value="" />
+    <br>    
+    offSetX: <input style="width: 100px;" type="text" name="offsetx" id="offsetx" value="" />
+    <br>    
+    offSetY: <input style="width: 100px;" type="text" name="offsety" id="offsety" value="" />
+    <br>    
+    Template: <input style="width: 100px;" type="text" name="template" id="template" value="" />
     <br>
 </div>
 
@@ -28,7 +35,7 @@
         display: block;
     }
 </style>
-<script src="~/Scripts/cardsLogic/cardInitLogic.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/Scripts/cardsLogic/cardEditLogic.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     initCanvas();
 </script>
