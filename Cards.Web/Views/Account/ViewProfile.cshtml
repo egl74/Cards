@@ -11,22 +11,23 @@
 <html>
     <body>
         <div>
-            @if (Model.Count() != 0)
-            {
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th width="200">@Resource.Field</th>
-                            <th width="200">@Resource.Type</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="infos">
-                        @foreach (var item in Model)
+            
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="200">@Resource.Field</th>
+                        <th width="200">@Resource.Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="infos">
+                    @if (Model.Count() != 0)
+                    {
+                        foreach (var item in Model)
                         {
                             <tr id="info-@item.Id">
                                 <td id="content-@item.Id" data-toggle="tooltip" title=@item.Comment>@item.Content</td>
-                                <td value="@item.Type" id="type-@item.Id">@Enum.GetName(typeof(FieldType), item.Type)</td>
+                                <td value="@item.Type" id="type-@item.Id">@Enum.GetName(typeof (FieldType), item.Type)</td>
                                 <td id="action-@item.Id">
                                     <div class=" btn-group" role="group">
                                         <button class="btn btn-warning edt-btn" id="edt-btn-@item.Id">@Resource.Edit</button>
@@ -35,13 +36,13 @@
                                 </td>
                             </tr>
                         }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                @Html.Label(Resource.ProfileIsEmpty)
-            }
+                    }
+                    else
+                    {
+                        @Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})
+                    }
+                </tbody>
+            </table>
         </div>
 
         <div id="add-div">
@@ -76,8 +77,8 @@
                 foreach (var item in Enum.GetValues(typeof (FieldType)))
                 {
                     @:var option = ('<option value="@i">@item</option>');
-                    @:selector = selector.concat(option);
-                    i++;
+                                @:selector = selector.concat(option);
+                                i++;
                 }
             }
             selector.concat('</select>');
@@ -106,7 +107,7 @@
                         if (response.Id != null) {
                             var id = response.Id;
                             var newcontent = response.Content;
-                            var newcomment = response.Comment;
+                            var newcomment = response.Comment == null ? "" : response.Comment;
                             var type = $('#Type option:selected').text();
                             var value = $('#Type option:selected').val();
                             var tr = '<tr id="info-' + id + '"><td id="content-' + id + '" data-toggle="tooltip" title=' + newcomment + '>' + newcontent + '</td>' +
@@ -116,6 +117,7 @@
                                 '<button class="btn btn-danger del-btn" id="del-btn-' + id + '">@Resource.Delete</button></div></td></tr>';
                             $('#infos').append(tr);
                             CreateAddButton();
+                            $('#empty').remove();
                         } else {
                             alert('');
                         }
@@ -150,6 +152,11 @@
                 success: function(response) {
                     if (response) {
                         tr.remove();
+                        if ($('#infos tr').length == 0)
+                        {
+                            var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
+                            $('#infos').append(empty);
+                        }
                     };
                 },
                 error: function() {
@@ -170,15 +177,15 @@
             c.append('<input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + c.attr('title') + '"/></td>');
             $('#content-' + rowId).attr('title', '');
 
-            
+
             var selector = '<select class="form-control" id="editType-' + rowId + '" name="editType" required>';
             @{
                 var j = 0;
                 foreach (var item in Enum.GetValues(typeof (FieldType)))
                 {
                     @:var option = ('<option value="@j">@item</option>');
-                                            @:selector = selector.concat(option);
-                                j++;
+                                                        @:selector = selector.concat(option);
+                                            j++;
                 }
             }
             selector.concat('</select>');
@@ -186,7 +193,7 @@
             var type = $('#type-' + rowId).attr("value");
             $('#type-' + rowId).html(selector);
             $('#editType-' + rowId).val(type);
-            
+
             var actionTd = $('#action-' + rowId).html('');
 
             var saveBtn = $('<button type="button" class="btn btn-primary" id="save-' + rowId + '">@Resource.Save</button>').appendTo(actionTd);
