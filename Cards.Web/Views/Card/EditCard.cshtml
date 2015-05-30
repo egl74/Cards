@@ -1,0 +1,131 @@
+﻿@using Cards.Web.Helpers
+@model IQueryable<Cards.Web.Models.Info>
+
+@{
+    ViewBag.Title = "Edit card";
+}
+
+<h2>Редактирование визитки</h2>
+
+<table class="mainTable">
+    <tbody>
+        <tr>
+            <td colspan="2">
+                <div class="cardname">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Название</span>
+                        <input type="text" class="form-control" placeholder="Введите название визитки" aria-describedby="basic-addon1" id="cardnameinput">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="canvases">
+                    <canvas id="canv1" class="canv1">
+                        Обновите браузер. Необходимо, чтобы он поддерживал HTML5
+                    </canvas>
+                    <canvas id="canv2" class="canv2"></canvas>
+                </div>
+            </td>
+            <td style="width: 300px;">
+                <div class="userInfo">
+                    <h3>Ваша информация:</h3>
+                    @if (Model.Count() != 0)
+                    {
+                        <table class="addInfoTable">
+                            <tbody id="infos">
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="info-@item.Id">
+                                        <td>
+                                            <input type="hidden" id="type-@item.Id" value="@Enum.GetName(typeof(FieldType), item.Type)" />
+                                            @Enum.GetName(typeof(FieldType), item.Type)
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="content-@item.Id" value="@item.Content" />
+                                            @item.Content
+                                        </td>
+                                        <td id="action-@item.Id">
+                                            <button class="btn btn-success btn-xs" id="add-btn" onclick="preAddTextBlock(@item.Id)"><i class="glyphicon glyphicon-plus"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        @Html.Label(Resource.ProfileIsEmpty)
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <br />
+                <div id="error-msgs"></div>
+                <input id="save-btn" type="button" value="Сохранить" class="save-button btn btn-primary" onclick="saveCard()" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<link rel="stylesheet" href="~/Content/cardEditStyle.css" type="text/css">
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/cardsLogic/cardEditLogic.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    template = @Request.Params["template"];
+
+    initCanvas();
+
+    function preAddTextBlock(infoId) {
+        var infoContent = $('#type-'+infoId).val();
+        var infoType = $('#content-'+infoId).val();
+        addTextBlock(infoId, infoContent, infoType);
+        checkAllButtons();
+    };
+
+    function addText(tag,txt){
+        document.getElementById(tag).innerHTML=txt;
+    }
+
+    function saveCard() {
+        var msg = '<div class="alert alert-danger" role="alert">';
+        var err = 0;
+        if($('#cardnameinput').val() === '') {
+            msg += '<i class="glyphicon glyphicon-minus"></i> Вы не ввели название<br />'
+            err = 1;
+        }
+        if(textBlocks.length === 0) {
+            msg += '<i class="glyphicon glyphicon-minus"></i> На визитке должно быть хотя бы 1 поле'
+            err = 1;
+        }
+        msg += '</div>';
+        if(err === 1) {
+            addText('error-msgs', msg);
+        } else {
+            addText('error-msgs', '');
+            var length = textBlocks.length;
+            var cardInfo = '';
+            for (i = 0; i < length; i++)
+                cardInfo += "" + textBlocks[i].infoId + "|" + (textBlocks[i].x-5) + "|" + (textBlocks[i].y-5) + "|";
+            $.ajax({
+                type: 'POST',
+                url: '/Card/SaveInfo',
+                dataType: 'json',
+                data: {
+                    CardId: 0,
+                    CardTemplate: template,
+                    CardName: $('#cardnameinput').val(),
+                    CardInfoes: cardInfo,
+                    CardInfoesLength: length
+                },
+                success: function (response) {
+                    alert(response);
+                }
+            });
+        }
+    }
+</script>

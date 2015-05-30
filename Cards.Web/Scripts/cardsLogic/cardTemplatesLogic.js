@@ -41,9 +41,9 @@ function Shape(topX) {
     this.offsetY = 0;
     this.draw = function () // метод, рисующий прямоугольник
     {
-        document.getElementById('coordx').value = this.x; /*!!!!!!!!*/
-        document.getElementById('offsetx').value = this.offsetX; /*!!!!!!!!*/
-        document.getElementById('offsety').value = this.offsetY; /*!!!!!!!!*/
+        //document.getElementById('coordx').value = this.x; /*!!!!!!!!*/
+        //document.getElementById('offsetx').value = this.offsetX; /*!!!!!!!!*/
+        //document.getElementById('offsety').value = this.offsetY; /*!!!!!!!!*/
         if (this.x > 0) {
             this.x = 0;
         }
@@ -59,7 +59,7 @@ function mouseDown(evt) {
     selectedTemplate.coordMouseClick = dragRect.x;
     var mouseX = evt.pageX - canvas.offsetLeft;
     var mouseY = evt.pageY - canvas.offsetTop;
-    document.getElementById('coordmx').value = mouseX; /*!!!!!!!!*/
+    //document.getElementById('coordmx').value = mouseX; /*!!!!!!!!*/
     if (mouseX < dragRect.x + dragRect.width && mouseX > dragRect.x) {
         drag = true;
         dragRect.offsetX = mouseX - dragRect.x;
@@ -138,7 +138,7 @@ function Template() {
                 }
             }
         }
-        document.getElementById('template').value = this.numberTemplate; /*!!!!!!!!*/
+        //document.getElementById('template').value = this.numberTemplate; /*!!!!!!!!*/
         buffer.context.fillStyle = '#FF0000';
         if (this.numberTemplate % 2 != 0) {
             buffer.context.fillRect(((this.numberTemplate - 1) / 2 * 272) + 6, 6, 270, 158);

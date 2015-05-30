@@ -9,22 +9,6 @@
 </canvas>
 <input id="Button1" type="button" value="Далее" class="next-button btn btn-success" onclick="nextPage()" />
 
-<div style="z-index: 5; position: absolute;
-             background-color: darkorange; opacity: 0.7;
-             text-align: right;
-             top: 15%; right: 10%;">
-    x: <input style="width: 100px;" type="text" name="coordx" id="coordx" value="" />
-    <br>
-    mouseX: <input style="width: 100px;" type="text" name="coordmx" id="coordmx" value="" />
-    <br>
-    offSetX: <input style="width: 100px;" type="text" name="offsetx" id="offsetx" value="" />
-    <br>
-    offSetY: <input style="width: 100px;" type="text" name="offsety" id="offsety" value="" />
-    <br>
-    Template: <input style="width: 100px;" type="text" name="template" id="template" value="" />
-    <br>
-</div>
-
 <style type="text/css">
     h2 {
         margin-left: 30px;
@@ -53,7 +37,7 @@
             alert("Не выбран шаблон!");
             return;
         } else {
-            alert(selectedTemplate.numberTemplate);
+            window.location.replace("/Card/EditCard?template=" + selectedTemplate.numberTemplate);
         }
     }
 </script>
