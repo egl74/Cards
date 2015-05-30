@@ -14,7 +14,7 @@ using Cards.Web.Models;
 
 namespace Cards.Web.Controllers
 {
-    public class CardController : Controller
+    public class CardController : BaseController
     {
         // GET: Card
         public ActionResult Index()
@@ -45,21 +45,40 @@ namespace Cards.Web.Controllers
             try
             {
                 //проверка, что все параметры передаются верно
-                System.Diagnostics.Debug.WriteLine("CardId: " + Request.Params["CardId"]);
-                System.Diagnostics.Debug.WriteLine("CardTemplate: " + Request.Params["CardTemplate"]);
-                System.Diagnostics.Debug.WriteLine("CardName: " + Request.Params["CardName"]);
-                System.Diagnostics.Debug.WriteLine("CardInfoes: " + Request.Params["CardInfoes"]);
-                System.Diagnostics.Debug.WriteLine("CardInfoesLength: " + Request.Params["CardInfoesLength"]);
+                //System.Diagnostics.Debug.WriteLine("CardId: " + Request.Params["CardId"]);
+                //System.Diagnostics.Debug.WriteLine("CardTemplate: " + Request.Params["CardTemplate"]);
+                //System.Diagnostics.Debug.WriteLine("CardName: " + Request.Params["CardName"]);
+                //System.Diagnostics.Debug.WriteLine("CardInfoes: " + Request.Params["CardInfoes"]);
+                //System.Diagnostics.Debug.WriteLine("CardInfoesLength: " + Request.Params["CardInfoesLength"]);
 
-                //тут строку CardInfoes разделяю на параметры: InfoId, PositionX, PositionY
+                ////тут строку CardInfoes разделяю на параметры: InfoId, PositionX, PositionY
+                //String[] buf = Request.Params["CardInfoes"].Split('|');
+                //int length = System.Int32.Parse(Request.Params["CardInfoesLength"]);
+                //for (int i = 0; i < length; i++)
+                //{
+                //    System.Diagnostics.Debug.WriteLine("InfoId = " + buf[0 + 3 * i]);
+                //    System.Diagnostics.Debug.WriteLine("PositionX = " + buf[1 + 3 * i]);
+                //    System.Diagnostics.Debug.WriteLine("PositionY = " + buf[2 + 3 * i]);
+                //}
+
+                var cardId = Convert.ToInt32(Request.Params["CardId"]);
+                var cardTemplate = Convert.ToInt32(Request.Params["CardTemplate"]);
+                var cardName = Request.Params["CardName"];
+                //var cardInfoes = Request.Params["CardInfoes"];
+                var cardInfoesLength = Convert.ToInt32(Request.Params["CardInfoesLength"]);
                 String[] buf = Request.Params["CardInfoes"].Split('|');
-                int length = System.Int32.Parse(Request.Params["CardInfoesLength"]);
-                for (int i = 0; i < length; i++)
+
+                Card card = cardId == 0 ? Context.Cards.Add(new Card {Template = cardTemplate, Name = cardName}) : Context.Cards.Single(c => c.Id == cardId);
+                card.CardInfoes.Clear();
+
+                for (int i = 0; i < cardInfoesLength; i++)
                 {
-                    System.Diagnostics.Debug.WriteLine("InfoId = " + buf[0 + 3 * i]);
-                    System.Diagnostics.Debug.WriteLine("PositionX = " + buf[1 + 3 * i]);
-                    System.Diagnostics.Debug.WriteLine("PositionY = " + buf[2 + 3 * i]);
+                    var infoId = Convert.ToInt32(buf[0 + 3 * i]);
+                    var posX = Convert.ToInt32(buf[1 + 3 * i]);
+                    var posY = Convert.ToInt32(buf[2 + 3 * i]);
+                    card.CardInfoes.Add(new CardInfo{CardId= cardId, InfoId = infoId, PositionX = posX, PositionY = posY});
                 }
+                Context.SaveChanges();
 
                 return Json(true);
             }
