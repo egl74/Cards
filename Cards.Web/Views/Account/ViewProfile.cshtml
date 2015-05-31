@@ -9,48 +9,51 @@
 <h2>Profile</h2>
 
 <html>
-    <body>
-        <div>
-            
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th width="200">@Resource.Field</th>
-                        <th width="200">@Resource.Type</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="infos">
-                    @if (Model.Count() != 0)
+<body>
+
+    <div class="container">
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th width="400">@Resource.Field</th>
+                    <th width="200">@Resource.Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="infos">
+                @if (Model.Count() != 0)
+                {
+                    foreach (var item in Model)
                     {
-                        foreach (var item in Model)
-                        {
-                            <tr id="info-@item.Id">
-                                <td id="content-@item.Id" data-toggle="tooltip" title=@item.Comment>@item.Content</td>
-                                <td value="@item.Type" id="type-@item.Id">@Enum.GetName(typeof (FieldType), item.Type)</td>
-                                <td id="action-@item.Id">
-                                    <div class=" btn-group" role="group">
-                                        <button class="btn btn-warning edt-btn" id="edt-btn-@item.Id">@Resource.Edit</button>
-                                        <button class="btn btn-danger del-btn" id="del-btn-@item.Id">@Resource.Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
+                        <tr id="info-@item.Id">
+                            <td id="content-@item.Id" data-toggle="tooltip" title=@item.Comment>@item.Content</td>
+                            <td value="@item.Type" id="type-@item.Id">@Enum.GetName(typeof(FieldType), item.Type)</td>
+                            <td id="action-@item.Id">
+                                <div class=" btn-group" role="group">
+                                    <button class="btn btn-warning edt-btn" id="edt-btn-@item.Id">@Resource.Edit</button>
+                                    <button class="btn btn-danger del-btn" id="del-btn-@item.Id">@Resource.Delete</button>
+                                </div>
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        @Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})
-                    }
-                </tbody>
-            </table>
+                }
+                else
+                {
+                    @Html.Label(Resource.ProfileIsEmpty, new { id = "empty" })
+                }
+            </tbody>
+        </table>
+
+        <div id="add-div" class="add-div">
         </div>
 
-        <div id="add-div">
-        </div>
-        
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/jquery-ui.js"></script>
-        <script>
+    </div>
+
+    <link rel="stylesheet" href="~/Content/viewProfileStyle.css" type="text/css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script>
     jQuery(document).ready(function ($) {
 
         $(function () {
@@ -58,7 +61,7 @@
         });
 
         self.CreateAddButton = function () {
-            $('#add-div').html('<button class="btn btn-success" id="add-btn"><i class="glyphicon glyphicon-plus"></i>@Resource.AddNewInfo</button>');
+            $('#add-div').html('<button class="btn btn-success" id="add-btn"><i class="glyphicon glyphicon-plus"></i> @Resource.AddNewInfo</button>');
 
             $('#add-btn').click(function () {
                 $('#add-div').html();
@@ -77,8 +80,8 @@
                 foreach (var item in Enum.GetValues(typeof (FieldType)))
                 {
                     @:var option = ('<option value="@i">@item</option>');
-                                @:selector = selector.concat(option);
-                                i++;
+                                                            @:selector = selector.concat(option);
+                                                            i++;
                 }
             }
             selector.concat('</select>');
@@ -138,7 +141,7 @@
             createEditRow(savedTr);
         });
 
-        $('body').on('click', '.del-btn', function() {
+        $('body').on('click', '.del-btn', function () {
             var tr = $(this).parent().parent().parent();
             var rowId = $(this).attr("id").replace('del-btn-', '');
             var data = {
@@ -149,17 +152,16 @@
                 url: '/Account/DeleteInfo',
                 dataType: 'json',
                 data: data,
-                success: function(response) {
+                success: function (response) {
                     if (response) {
                         tr.remove();
-                        if ($('#infos tr').length == 0)
-                        {
+                        if ($('#infos tr').length == 0) {
                             var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
                             $('#infos').append(empty);
                         }
                     };
                 },
-                error: function() {
+                error: function () {
                     alert('');
                 }
             });
@@ -171,10 +173,12 @@
             var rowId = tr.attr("id").replace('info-', '');
 
             var content = $('#content-' + rowId).html();
-            $('#content-' + rowId).html('<input type="text" id="field-' + rowId +'" class="form-control" placeholder=@Resource.Field... value="' + content + '"/></td>');
+            $('#content-' + rowId).html('<div class="edit-block-1"><input type="text" id="field-' + rowId + '" class="form-control" placeholder=@Resource.Field... value="' + content + '"/></div>' +
+                    '<div class="edit-block-2"><input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + $('#content-' + rowId).attr('title') + '"/></div>');
 
-            var c = $('#content-' + rowId);
-            c.append('<input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + c.attr('title') + '"/></td>');
+                @*var c = $('#content-' + rowId);
+                c.append('<input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + c.attr('title') + '"/>');*@
+
             $('#content-' + rowId).attr('title', '');
 
 
@@ -184,8 +188,8 @@
                 foreach (var item in Enum.GetValues(typeof (FieldType)))
                 {
                     @:var option = ('<option value="@j">@item</option>');
-                                                        @:selector = selector.concat(option);
-                                            j++;
+                                                                                    @:selector = selector.concat(option);
+                                                                        j++;
                 }
             }
             selector.concat('</select>');
@@ -226,14 +230,13 @@
             var result = '';
 
             result += '<td id="content-' + obj.Id + '" data-toggle="tooltip" title=' + obj.Comment + '>' + obj.Content + '</td>';
-            result += '<td value=' + obj.Type +  ' id="type-' + obj.Id + '">' + obj.TypeText + '</td>';
+            result += '<td value=' + obj.Type + ' id="type-' + obj.Id + '">' + obj.TypeText + '</td>';
             result += '<td id="action-' + obj.Id + '"><div class=" btn-group" role="group"><button class="btn btn-warning edt-btn" id="edt-btn-' + obj.Id + '">@Resource.Edit</button>' +
                 '<button class="btn btn-danger del-btn" id="del-btn-' + obj.Id + '">@Resource.Delete</button></div></td>';
             return result;
         }
     });
 
-        </script>
-    </body>
+    </script>
+</body>
 </html>
-

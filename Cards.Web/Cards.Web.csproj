@@ -209,6 +209,7 @@
     <Content Include="Content\Images\Templates\8.png" />
     <Content Include="Content\Images\Templates\9.png" />
     <Content Include="Content\menu-style.css" />
+    <Content Include="Content\viewProfileStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
