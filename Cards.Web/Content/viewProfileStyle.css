@@ -1,0 +1,21 @@
+﻿.add-div {
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.edit-block-1 {
+    margin-right: 195px;
+}
+
+.edit-block-2 {
+    margin-top: -34px;
+    margin-left: 195px;
+}
