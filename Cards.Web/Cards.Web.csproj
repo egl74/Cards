@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\FieldType.cs" />
+    <Compile Include="Helpers\InfoRestrictions.cs" />
     <Compile Include="Migrations\201505141610306_Initial.cs" />
     <Compile Include="Migrations\201505141610306_Initial.Designer.cs">
       <DependentUpon>201505141610306_Initial.cs</DependentUpon>

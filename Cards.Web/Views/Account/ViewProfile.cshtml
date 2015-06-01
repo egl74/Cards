@@ -1,5 +1,5 @@
 ﻿@using Cards.Web.Helpers
-@model IQueryable<Cards.Web.Models.Info>
+@model Cards.Web.Models.ProfileViewModel
 
 @{
     ViewBag.Title = "Profile";
@@ -15,7 +15,7 @@
 
     <div class="container">
 
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" id="table">
             <thead>
                 <tr>
                     <th width="400">@Resource.Field</th>
@@ -24,9 +24,9 @@
                 </tr>
             </thead>
             <tbody id="infos">
-                @if (Model.Count() != 0)
+                @if (Model.Infos.Count() != 0)
                 {
-                    foreach (var item in Model)
+                    foreach (var item in Model.Infos)
                     {
                         <tr id="info-@item.Id">
                             <td id="content-@item.Id" data-toggle="tooltip" title=@item.Comment>@item.Content</td>
@@ -80,14 +80,14 @@
                 var comment = '<input class="form-control" id="newcomment" placeholder=@Resource.Comment... />';
                 var selector = '<select class="form-control" id="Type" name="Type" required>';
                 @{
-                var i = 0;
-                foreach (var item in Enum.GetValues(typeof (FieldType)))
-                {
-                    @:var option = ('<option value="@i">@item</option>');
-                                                                                                        @:selector = selector.concat(option);
-                                                                                                        i++;
+                    var i = 0;
+                    foreach (var item in Enum.GetValues(typeof (FieldType)))
+                    {
+                        @:var option = ('<option value="@i">@item</option>');
+                        @:selector = selector.concat(option);
+                        i++;
+                    }
                 }
-            }
                 selector.concat('</select>');
                 var buttons = '<div class=" btn-group" role="group" id="actions">' +
                     '<button class="btn btn-primary edt-btn" id="savenew-btn">@Resource.Save</button>' +
@@ -100,7 +100,7 @@
 
                 $('#savenew-btn').click(function () {
                     var data = {
-                        Id: '',
+                        Id: @Model.UserId,
                         Content: $('#newcontent').val(),
                         Comment: $('#newcomment').val(),
                         Type: $('#Type').val()
@@ -123,6 +123,7 @@
                                     '<button class="btn btn-warning edt-btn" id="edt-btn-' + id + '">@Resource.Edit</button>' +
                                     '<button class="btn btn-danger del-btn" id="del-btn-' + id + '">@Resource.Delete</button></div></td></tr>';
                                 $('#infos').append(tr);
+                                $('#table').show();
                                 CreateAddButton();
                                 $('#empty').remove();
                             } else {
@@ -161,6 +162,7 @@
                             tr.remove();
                             if ($('#infos tr').length == 0) {
                                 var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
+                                $('#table').hide();
                                 $('#infos').append(empty);
                             }
                         };
@@ -188,14 +190,14 @@
 
                 var selector = '<select class="form-control" id="editType-' + rowId + '" name="editType" required>';
                 @{
-                var j = 0;
-                foreach (var item in Enum.GetValues(typeof (FieldType)))
-                {
-                    @:var option = ('<option value="@j">@item</option>');
-                                                                                                                                @:selector = selector.concat(option);
-                                                                                                                    j++;
+                    var j = 0;
+                    foreach (var item in Enum.GetValues(typeof (FieldType)))
+                    {
+                        @:var option = ('<option value="@j">@item</option>');
+                        @:selector = selector.concat(option);
+                        j++;
+                    }
                 }
-            }
                 selector.concat('</select>');
 
                 var type = $('#type-' + rowId).attr("value");

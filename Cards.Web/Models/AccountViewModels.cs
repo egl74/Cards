@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Cards.Web.Models
 {
@@ -37,6 +38,12 @@ namespace Cards.Web.Models
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
+    }
+
+    public class ProfileViewModel
+    {
+        public IQueryable<Info> Infos { get; set; }
+        public string UserId { get; set; }
     }
 
     public class ForgotViewModel

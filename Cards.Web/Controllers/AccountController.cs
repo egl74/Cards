@@ -159,11 +159,15 @@ namespace Cards.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult ViewProfile()
+        public ActionResult ViewProfile(string userId)
         {
-            string currentUserId = User.Identity.GetUserId();
-            var model = Context.Infoes.Where(i => i.UserId == currentUserId);
-            return View(model);
+            var currentUserId = User.Identity.GetUserId();
+            if (currentUserId == userId || Context.Users.Single(u => u.Id == currentUserId).IsAdmin)
+            {
+                var infos = Context.Infoes.Where(i => i.UserId == userId);
+                return View(new ProfileViewModel{Infos = infos, UserId = userId});
+            }
+            return RedirectToAction("");
         }
 
         [Authorize]
@@ -171,6 +175,7 @@ namespace Cards.Web.Controllers
         {
             try
             {
+                //if
                 item.UserId = User.Identity.GetUserId();
                 var added = Context.Infoes.Add(item);
                 await Context.SaveChangesAsync();
