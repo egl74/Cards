@@ -1,18 +1,71 @@
-﻿@{
+﻿@using Cards.Web.Helpers
+@model IQueryable<Cards.Web.Models.CardInfo>
+
+@{
     ViewBag.Title = "Home Page";
 }
+
+@*<table>
+        <thead>
+            <tr>
+                <th>CardId</th>
+                <th>CardUserId</th>
+                <th>CardTemplate</th>
+                <th>CardName</th>
+                <th>CardRating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    123
+                </td>
+                <td>
+                    123
+                </td>
+                <td>
+                    123
+                </td>
+                <td>
+                    123
+                </td>
+                <td>
+                    123
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th>InfoId</th>
+                <th>InfoType</th>
+                <th>InfoContent</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() != 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@Enum.GetName(typeof(FieldType), item.Type)</td>
+                        <td>@item.Content</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                @Html.Label(Resource.ProfileIsEmpty, new { id = "empty" })
+            }
+        </tbody>
+    </table>*@
 
 <table>
     <thead>
         <tr>
-            <th>CardId</th>
-            <th>CardUserId</th>
-            <th>CardTemplate</th>
-            <th>CardName</th>
-            <th>CardRating</th>
-            <th>InfoId</th>
-            <th>InfoType</th>
-            <th>InfoContent</th>
             <th>CardInfoId</th>
             <th>CardInfoCardId</th>
             <th>CardInfoInfoId</th>
@@ -21,46 +74,22 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-            <td>
-                123
-            </td>
-        </tr>
+        @if (Model.Count() != 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.CardId</td>
+                    <td>@item.InfoId</td>
+                    <td>@item.PositionX</td>
+                    <td>@item.PositionY</td>
+                </tr>
+            }
+        }
+        else
+        {
+            @Html.Label(Resource.ProfileIsEmpty, new { id = "empty" })
+        }
     </tbody>
 </table>

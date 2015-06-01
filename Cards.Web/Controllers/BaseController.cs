@@ -51,7 +51,7 @@ namespace Cards.Web.Controllers
         public ActionResult SetCulture(string culture)
         {
             //// Validate input
-            //culture = CultureHelper.GetImplementedCulture(culture);
+            culture = CultureHelper.GetImplementedCulture(culture);
             //// Save culture in a cookie
             //HttpCookie cookie = Request.Cookies["_culture"];
             //if (cookie != null)

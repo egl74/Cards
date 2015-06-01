@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Cards.Web.Helpers;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Cards.Web.Models;
 
 namespace Cards.Web.Controllers
 {
@@ -10,7 +16,8 @@ namespace Cards.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var model = Context.CardInfoes;
+            return View(model);
         }
 
         public ActionResult About()

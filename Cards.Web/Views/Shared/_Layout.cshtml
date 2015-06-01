@@ -10,7 +10,7 @@
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/menu-style.css" rel="stylesheet" />
     @*<link rel="stylesheet/less" type="text/css" href="styles.less">
-    <script src="less.js" type="text/javascript"></script>*@
+        <script src="less.js" type="text/javascript"></script>*@
 </head>
 <body>
     <nav class="navbar navbar-static">
@@ -24,7 +24,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(Resource.Home, "Index", "Home")</li>
-                    <li>@Html.ActionLink("Управление визитками", "MainManageCards", "Card")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Управление визитками", "MainManageCards", "Card")</li>
+                    }
                     <li>@Html.ActionLink("О нас", "About", "Home")</li>
                 </ul>
                 <ul class="nav navbar-right navbar-nav">
@@ -62,27 +65,23 @@
                     <li>
                         @* Search form *@
                         <form class="form-inline" style="margin-top: 3px;">
-                                <input type="text" class="form-control pull-left" placeholder="Search">
-                                <button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button>
+                            <input type="text" class="form-control pull-left" placeholder="Search">
+                            <button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button>
                         </form>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
     @RenderBody()
-
     <div class="container-footer">
         <hr />
         <p>&copy; @DateTime.Now.Year - Laptenok | Tsetsersky ASP.NET Application</p>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
-
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
     @*<script src="~/Scripts/coffee-script.js" type="text/javascript" charset="utf-8"></script>*@
     <script src="~/Scripts/cookie_logic.js" type="text/javascript" charset="utf-8"></script>
@@ -91,6 +90,5 @@
             initLanguage();
         });
     </script>
-
 </body>
 </html>
