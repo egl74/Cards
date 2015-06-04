@@ -34,7 +34,6 @@ namespace Cards.Web.Controllers
 
         public ActionResult EditCard()
         {
-            ApplicationDbContext Context = new ApplicationDbContext();
             string currentUserId = User.Identity.GetUserId();
             var model = Context.Infoes.Where(i => i.UserId == currentUserId);
             return View(model);
@@ -84,7 +83,7 @@ namespace Cards.Web.Controllers
             }
             catch (Exception)
             {
-                return null;
+                return Json(false);
             }
         }
     }

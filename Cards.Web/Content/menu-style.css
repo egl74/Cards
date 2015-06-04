@@ -10,8 +10,6 @@
 body {
     font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
     font-weight: 300;
-    color: #676767;
-    background-color: #efefef;
 }
 
 a, a:hover {
@@ -21,25 +19,23 @@ a, a:hover {
 }
 
 .navbar {
-    background-color: #333;
-    color: #ffffff;
     border-radius: 0;
     margin-bottom: 0px;
+    color: #ffffff;
 }
 
 .navbar2 {
-    background-color: #555;
-    color: #ffffff;
     border-radius: 0;
     height: 40px;
+    color: #ffffff;
 }
 
 .navbar-nav > li > a {
-    color: #fff;
     padding-left: 20px;
     padding-right: 20px;
     /*border-left: 1px solid #66BBCC;*/
     border-left: 1px solid #eee;
+    color: #fff;
 }
 
 .navbar-nav > li > div {

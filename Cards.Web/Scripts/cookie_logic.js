@@ -57,8 +57,39 @@ function changeLanguage(value) {
             'culture': value
         },
         success: function (data) {
-            //$('#container').html(data);
-            //location.reload();
         }
     });
+}
+
+function initTheme(theme) {
+    $.ajax({
+        url: '/Base/SetTheme',
+        data: {
+            'theme': theme
+        },
+        success: function (data) {
+            if (data === "white") {
+                $('body').css("color", '#676767');
+                $('body').css("background-color", '#efefef');
+                $('.navbar').css("background-color", '#444');
+                $('.navbar2').css("background-color", '#777');
+            }
+            if (data === "black") {
+                $('body').css("color", '#D8D8D8');
+                $('body').css("background-color", '#3D3D3D');
+                $('.navbar').css("background-color", '#222');
+                $('.navbar2').css("background-color", '#333');
+            }
+        }
+    });
+}
+
+function setTheme() {
+    var value = "";
+    if (document.getElementById("styleonoffswitch").valueOf().checked) {
+        value = "black";
+    } else {
+        value = "white";
+    }
+    initTheme(value)
 }

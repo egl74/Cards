@@ -65,8 +65,20 @@ namespace Cards.Web.Controllers
             //Response.Cookies.Add(cookie);
             System.Diagnostics.Debug.WriteLine("Hello, world! This culture: " + culture);
             return RedirectToAction("Index", "Home");
-        } 
+        }
 
+        public string SetTheme(string theme)
+        {
+            try
+            {
+                Session["theme"] = theme;
+                return theme;
+            }
+            catch (Exception)
+            {
+                return "false";
+            }
+        }
 
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
