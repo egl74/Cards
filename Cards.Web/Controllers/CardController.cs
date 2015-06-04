@@ -34,7 +34,6 @@ namespace Cards.Web.Controllers
 
         public ActionResult EditCard()
         {
-            ApplicationDbContext Context = new ApplicationDbContext();
             string currentUserId = User.Identity.GetUserId();
             var model = Context.Infoes.Where(i => i.UserId == currentUserId);
             return View(model);
@@ -68,7 +67,7 @@ namespace Cards.Web.Controllers
                 var cardInfoesLength = Convert.ToInt32(Request.Params["CardInfoesLength"]);
                 String[] buf = Request.Params["CardInfoes"].Split('|');
 
-                Card card = cardId == 0 ? Context.Cards.Add(new Card {Template = cardTemplate, Name = cardName}) : Context.Cards.Single(c => c.Id == cardId);
+                Card card = cardId == 0 ? Context.Cards.Add(new Card {Template = cardTemplate, Name = cardName, UserId = User.Identity.GetUserId()}) : Context.Cards.Single(c => c.Id == cardId);
                 card.CardInfoes.Clear();
 
                 for (int i = 0; i < cardInfoesLength; i++)
@@ -76,7 +75,13 @@ namespace Cards.Web.Controllers
                     var infoId = Convert.ToInt32(buf[0 + 3 * i]);
                     var posX = Convert.ToInt32(buf[1 + 3 * i]);
                     var posY = Convert.ToInt32(buf[2 + 3 * i]);
-                    card.CardInfoes.Add(new CardInfo{CardId= cardId, InfoId = infoId, PositionX = posX, PositionY = posY});
+                    card.CardInfoes.Add(new CardInfo
+                    {
+                        CardId = cardId,
+                        InfoId = infoId,
+                        PositionX = posX,
+                        PositionY = posY
+                    });
                 }
                 Context.SaveChanges();
 

@@ -16,7 +16,7 @@ namespace Cards.Web.Controllers
     {
         public ActionResult Index()
         {
-            var model = Context.CardInfoes;
+            var model = Context.Cards.ToList();
             return View(model);
         }
 
