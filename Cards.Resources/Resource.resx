@@ -141,6 +141,9 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="NoAccess" xml:space="preserve">
+    <value>You have no access to this page.</value>
+  </data>
   <data name="ProfileIsEmpty" xml:space="preserve">
     <value>Profile is empty</value>
   </data>
