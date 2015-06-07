@@ -20,6 +20,11 @@ namespace Cards.Web.Controllers
             return View(model);
         }
 
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

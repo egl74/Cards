@@ -56,8 +56,20 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui.js"></script>
     <script type="text/javascript">
+        
+        $(function () {
+            $(document).tooltip({
+                track: true
+            });
+        });
 
         jQuery(document).ready(function ($) {
+
+            if ($('#infos tr').length == 0) {
+                var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
+                $('#table').hide();
+                $('#infos').append(empty);
+            }
 
             self.CreateAddButton = function () {
                 $('#add-div').html('<button class="btn btn-success" id="add-btn"><i class="glyphicon glyphicon-plus"></i> @Resource.AddNewInfo</button>');
@@ -67,12 +79,6 @@
                     self.CreateAddInputs();
                 });
             }
-
-            $(function () {
-                $(document).tooltip({
-                    track: true
-                });
-            });
 
             self.CreateAddButton();
 
@@ -181,7 +187,7 @@
 
                 var content = $('#content-' + rowId).html();
                 $('#content-' + rowId).html('<div class="edit-block-1"><input type="text" id="field-' + rowId + '" class="form-control" placeholder=@Resource.Field... value="' + content + '"/></div>' +
-                        '<div class="edit-block-2"><input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + $('#content-' + rowId).attr('title') + '"/></div>');
+                    '<div class="edit-block-2"><input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + $('#content-' + rowId).attr('title') + '"/></div>');
 
                 @*var c = $('#content-' + rowId);
                 c.append('<input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + c.attr('title') + '"/>');*@

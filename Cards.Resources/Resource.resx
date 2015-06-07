@@ -153,6 +153,9 @@
   <data name="ManageCards" xml:space="preserve">
     <value>Manage cards</value>
   </data>
+  <data name="NoAccess" xml:space="preserve">
+    <value>You have no access to the page you requested.</value>
+  </data>
   <data name="ProfileIsEmpty" xml:space="preserve">
     <value>Profile is empty</value>
   </data>

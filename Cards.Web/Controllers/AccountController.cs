@@ -159,15 +159,11 @@ namespace Cards.Web.Controllers
         }
 
         [Authorize]
+        [OwnerOrAdminFilter]
         public ActionResult ViewProfile(string userId)
         {
-            var currentUserId = User.Identity.GetUserId();
-            if (currentUserId == userId || Context.Users.Single(u => u.Id == currentUserId).IsAdmin)
-            {
-                var infos = Context.Infoes.Where(i => i.UserId == userId);
-                return View(new ProfileViewModel{Infos = infos, UserId = userId});
-            }
-            return RedirectToAction("");
+            var infos = Context.Infoes.Where(i => i.UserId == userId);
+            return View(new ProfileViewModel{Infos = infos, UserId = userId});
         }
 
         [Authorize]
