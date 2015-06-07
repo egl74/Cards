@@ -171,6 +171,7 @@
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\FieldType.cs" />
     <Compile Include="Helpers\InfoRestrictions.cs" />
+    <Compile Include="Helpers\OwnerOrAdminFilter.cs" />
     <Compile Include="Migrations\201505141610306_Initial.cs" />
     <Compile Include="Migrations\201505141610306_Initial.Designer.cs">
       <DependentUpon>201505141610306_Initial.cs</DependentUpon>
@@ -178,6 +179,10 @@
     <Compile Include="Migrations\201505261404062_Infoes.cs" />
     <Compile Include="Migrations\201505261404062_Infoes.Designer.cs">
       <DependentUpon>201505261404062_Infoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506061832262_Cascade.cs" />
+    <Compile Include="Migrations\201506061832262_Cascade.Designer.cs">
+      <DependentUpon>201506061832262_Cascade.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -275,6 +280,7 @@
     <Content Include="Views\Card\CardTemplates.cshtml" />
     <Content Include="Views\Card\MainManageCards.cshtml" />
     <Content Include="Views\Card\EditCard.cshtml" />
+    <Content Include="Views\Home\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -291,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505261404062_Infoes.resx">
       <DependentUpon>201505261404062_Infoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506061832262_Cascade.resx">
+      <DependentUpon>201506061832262_Cascade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

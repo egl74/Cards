@@ -16,7 +16,7 @@ namespace Cards.Web.Controllers
     {
         public ActionResult Index()
         {
-            var model = Context.Cards.ToList();
+            var model = Context.Cards.OrderByDescending(c => c.Rating).ToList();
             return View(model);
         }
 

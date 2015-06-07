@@ -85,6 +85,35 @@ namespace Cards.Web.Models
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Info>()
+                        .HasRequired(i => i.User)
+                        .WithMany(u => u.Infoes)
+                        .HasForeignKey(i => i.UserId)
+                        .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Card>()
+                        .HasRequired(c => c.User)
+                        .WithMany(u => u.Cards)
+                        .HasForeignKey(c => c.UserId)
+                        .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<CardInfo>()
+                        .HasRequired(t => t.Card)
+                        .WithMany(t => t.CardInfoes)
+                        .HasForeignKey(d => d.CardId)
+                        .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<CardInfo>()
+                        .HasRequired(t => t.Info)
+                        .WithMany(t => t.CardInfoes)
+                        .HasForeignKey(d => d.InfoId)
+                        .WillCascadeOnDelete(true);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Info> Infoes { get; set; }
         public virtual DbSet<CardInfo> CardInfoes { get; set; }
