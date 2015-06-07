@@ -1,18 +1,13 @@
 ﻿function initLanguage() {
-    var culture = getCookie('culture');
-    if (culture === "ru") {
+    var culture = getCookie('_culture');
+    if (culture === null || culture === "ru-RU") {
         document.getElementById("langonoffswitch").valueOf().checked = false;
-        changeLanguage(culture);
+        changeLanguage("ru-RU");
         return;
     }
     if (culture === "en-US") {
         document.getElementById("langonoffswitch").valueOf().checked = true;
         changeLanguage(culture);
-        return;
-    }
-    if (culture === null) {
-        document.getElementById("langonoffswitch").valueOf().checked = true;
-        setCookie();
         return;
     }
 }
@@ -24,9 +19,9 @@ function setCookie() {
     if (document.getElementById("langonoffswitch").valueOf().checked) {
         value = "en-US";
     } else {
-        value = "ru";
+        value = "ru-RU";
     }
-    document.cookie = "culture=" + escape(value) + "; expires=" + date.toUTCString() + "; path=" + escape("/");
+    document.cookie = "_culture=" + escape(value) + "; expires=" + date.toUTCString() + "; path=" + escape("/");
     changeLanguage(value);
 }
 
@@ -57,6 +52,9 @@ function changeLanguage(value) {
             'culture': value
         },
         success: function (data) {
+            setTimeout(function() {
+                document.location.reload();
+            }, 750);
         }
     });
 }
@@ -78,7 +76,7 @@ function initTheme(theme) {
                 $('body').css("color", '#D8D8D8');
                 $('body').css("background-color", '#3D3D3D');
                 $('.navbar').css("background-color", '#222');
-                $('.navbar2').css("background-color", '#333');
+                $('.navbar2').css("background-color", '#444');
             }
         }
     });

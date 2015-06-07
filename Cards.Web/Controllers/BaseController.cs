@@ -48,23 +48,31 @@ namespace Cards.Web.Controllers
             }
         }
 
-        public ActionResult SetCulture(string culture)
+        public string SetCulture(string culture)
         {
-            //// Validate input
-            culture = CultureHelper.GetImplementedCulture(culture);
-            //// Save culture in a cookie
-            //HttpCookie cookie = Request.Cookies["_culture"];
-            //if (cookie != null)
-            //    cookie.Value = culture;   // update cookie value
-            //else
-            //{
-            //    cookie = new HttpCookie("_culture");
-            //    cookie.Value = culture;
-            //    cookie.Expires = DateTime.Now.AddYears(1);
-            //}
-            //Response.Cookies.Add(cookie);
-            System.Diagnostics.Debug.WriteLine("Hello, world! This culture: " + culture);
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                // Validate input
+                culture = CultureHelper.GetImplementedCulture(culture);
+                // Save culture in a cookie
+                HttpCookie cookie = Request.Cookies["_culture"];
+                if (cookie != null)
+                    cookie.Value = culture;   // update cookie value
+                else
+                {
+                    cookie = new HttpCookie("_culture");
+                    cookie.Value = culture;
+                    cookie.Expires = DateTime.Now.AddYears(1);
+                }
+                Response.Cookies.Add(cookie);
+                Session["culture"] = culture;
+                System.Diagnostics.Debug.WriteLine("Hello, world! This culture: " + culture);
+                return "true";
+            }
+            catch (Exception)
+            {
+                return "false";
+            }
         }
 
         public string SetTheme(string theme)

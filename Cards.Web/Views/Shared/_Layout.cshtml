@@ -19,9 +19,9 @@
                     <li>@Html.ActionLink(Resource.Home, "Index", "Home")</li>
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Управление визитками", "MainManageCards", "Card")</li>
+                        <li>@Html.ActionLink(Resource.ManageCards, "MainManageCards", "Card")</li>
                     }
-                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
+                    <li>@Html.ActionLink(Resource.About, "About", "Home")</li>
                 </ul>
                 <ul class="nav navbar-right navbar-nav">
                     @Html.Partial("_LoginPartial")
@@ -36,7 +36,14 @@
                     <li>
                         @* Language switcher *@
                         <div class="onoffswitch">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="langonoffswitch" onclick="setCookie()">
+                            @if (Session["culture"] == null || Session["culture"].Equals("ru-RU"))
+                            {
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="langonoffswitch" onclick="setCookie()">
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="langonoffswitch" onclick="setCookie()" checked>
+                            }
                             <label class="onoffswitch-label" for="langonoffswitch">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
@@ -114,7 +121,7 @@
             }
 
             .navbar2 {
-                background-color: #333;
+                background-color: #444;
             }
         </style>
     }

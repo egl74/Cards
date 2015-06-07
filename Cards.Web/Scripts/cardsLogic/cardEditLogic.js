@@ -15,7 +15,7 @@ function initCanvas() {
     canvas.height = height;
     textBlocks = new Array();
     clickedShape = -1;
-    drag = false; // переменная истинная когда зажата кнопка мыши
+    drag = false; // переменная истинная, когда зажата кнопка мыши
     canvas.onmousedown = mouseDown;
     setInterval(draw, 1000 / 60);
 }

@@ -7,9 +7,9 @@
         @Html.AntiForgeryToken()
 
         <li>
-            @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "ViewProfile", "Account", new { userId = User.Identity.GetUserId()}, new { title = "Manage" })
+            @Html.ActionLink(Resource.Hello + ", " + User.Identity.GetUserName() + "!", "ViewProfile", "Account", new { userId = User.Identity.GetUserId()}, new { title = "Manage" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resource.LogOff</a></li>
     }
 }
 else

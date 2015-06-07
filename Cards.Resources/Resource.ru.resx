@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>О нас</value>
+  </data>
   <data name="AddNewInfo" xml:space="preserve">
     <value>Добавить новую информацию</value>
   </data>
@@ -135,11 +138,20 @@
   <data name="Field" xml:space="preserve">
     <value>Поле</value>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Привет</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Главная</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="ManageCards" xml:space="preserve">
+    <value>Управление визитками</value>
   </data>
   <data name="ProfileIsEmpty" xml:space="preserve">
     <value>Профиль пуст</value>
