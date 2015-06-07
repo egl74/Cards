@@ -147,8 +147,17 @@
   <data name="LogIn" xml:space="preserve">
     <value>Войти</value>
   </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="ManageCards" xml:space="preserve">
+    <value>Управление визитками</value>
+  </data>
   <data name="ProfileIsEmpty" xml:space="preserve">
     <value>Профиль пуст</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Рейтинг визиток</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Зарегистрироваться</value>

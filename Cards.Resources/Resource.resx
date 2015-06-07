@@ -147,8 +147,17 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="ManageCards" xml:space="preserve">
+    <value>Manage cards</value>
+  </data>
   <data name="ProfileIsEmpty" xml:space="preserve">
     <value>Profile is empty</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Cards rating</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>

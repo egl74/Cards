@@ -151,11 +151,38 @@ namespace Cards.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profile is empty.
+        ///   Ищет локализованную строку, похожую на Log off.
+        /// </summary>
+        public static string LogOff {
+            get {
+                return ResourceManager.GetString("LogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Manage cards.
+        /// </summary>
+        public static string ManageCards {
+            get {
+                return ResourceManager.GetString("ManageCards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Profile is empty.
         /// </summary>
         public static string ProfileIsEmpty {
             get {
                 return ResourceManager.GetString("ProfileIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cards rating.
+        /// </summary>
+        public static string Rating {
+            get {
+                return ResourceManager.GetString("Rating", resourceCulture);
             }
         }
         
