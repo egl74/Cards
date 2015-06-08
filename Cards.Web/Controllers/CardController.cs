@@ -9,11 +9,6 @@ namespace Cards.Web.Controllers
 {
     public class CardController : BaseController
     {
-        // GET: Card
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult MainManageCards()
         {
@@ -37,7 +32,6 @@ namespace Cards.Web.Controllers
             try
             {
                 //System.Diagnostics.Debug.WriteLine("Example");
-
                 var cardId = Convert.ToInt32(Request.Params["CardId"]);
                 var cardTemplate = Convert.ToInt32(Request.Params["CardTemplate"]);
                 var cardName = Request.Params["CardName"];
@@ -62,12 +56,13 @@ namespace Cards.Web.Controllers
                     });
                 }
                 Context.SaveChanges();
+                Session["createdNewCard"] = "yes";
 
                 return Json(true);
             }
             catch (Exception)
             {
-                return null;
+                return Json(false);
             }
         }
 
@@ -89,6 +84,31 @@ namespace Cards.Web.Controllers
                     return Json(toDo);
                 }
                 return Json(true);
+            }
+            catch (Exception)
+            {
+                return Json(false);
+            }
+        }
+
+        public JsonResult CheckRatingButtons()
+        {
+            try
+            {
+                var cardsCount = Convert.ToInt32(Request.Params["Count"]);
+                String[] buf = Request.Params["CardIds"].Split('|');
+                System.Diagnostics.Debug.WriteLine("Count: " + cardsCount);
+                var ids = ""; 
+                for (int i = 0; i < cardsCount; i++)
+                {
+                    var cardId = Convert.ToInt32(buf[i]);
+                    if (Session["rating" + cardId] != null)
+                    {
+                        ids += cardId + "|";
+                    }
+                }
+                System.Diagnostics.Debug.WriteLine("ids: " + ids);
+                return Json(ids);
             }
             catch (Exception)
             {

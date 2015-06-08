@@ -2,6 +2,17 @@
     ViewBag.Title = Resource.ManageCards;
 }
 
+@if (Session["createdNewCard"] != null)
+{
+    Session["createdNewCard"] = null;
+    <br />
+    <div id="error-msgs" class="error-msgs">
+        <div class="alert alert-success" role="alert">
+            <i class="glyphicon glyphicon-ok-circle"></i> Новая визитка успешно сохранена!
+        </div>
+    </div>
+}
+
 <table border="1">
     <tbody>
         <tr>
@@ -24,5 +35,11 @@
         width: 80%;
         height: 60%;
         text-align: center;
+    }
+
+    .error-msgs {
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>

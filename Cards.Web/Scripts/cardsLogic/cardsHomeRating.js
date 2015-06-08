@@ -13,7 +13,7 @@ function initCardsRating(cardsCnt, data) {
     data = data.replace(new RegExp("</tr>", 'g'), "&");
     data = data.replace(new RegExp("<td>", 'g'), "");
     data = data.replace(new RegExp("</td>", 'g'), "|");
-    var tmp = ['', '', '', '', '', '', '', '', ''], i = 0, j = 0;
+    var tmp = ['', '', '', '', '', '', '', '', '', '', ''], i = 0, j = 0;
     while (i < data.length) {
         while (data[i] != '&') {
             while (data[i] != '|') {
@@ -26,15 +26,18 @@ function initCardsRating(cardsCnt, data) {
         j = 0;
         i++;
         setData(tmp);
-        tmp = ['', '', '', '', '', '', '', '', ''];
+        tmp = ['', '', '', '', '', '', '', '', '', '', ''];
     }
     infoesCount = infoesBlocks.length;
     initMainTable();
     initImages(0);
     initRating();
+    initRatingButtons();
 }
 // Класс, задающий одну визитку
-function Card(cardId, cardTemplate, cardName, cardRating) {
+function Card(userId, userEmail, cardId, cardTemplate, cardName, cardRating) {
+    this.userId = userId;
+    this.userEmail = userEmail;
     this.cardId = cardId;
     this.cardTemplate = cardTemplate;
     this.cardName = cardName;
@@ -66,7 +69,7 @@ function setData(data) {
         }
     }
     if (cardId === -1) {
-        cardsBlocks.push(new Card(data[0], data[1], data[2], data[3]));
+        cardsBlocks.push(new Card(data[9], data[10], data[0], data[1], data[2], data[3]));
     }
     infoesBlocks.push(new CardInfo(data[0], data[4], data[5], data[6], data[7], data[8]));
 }
@@ -145,10 +148,10 @@ function changeRating(todo,cardId) {
         },
         success: function (response) {
             if (response === "up") {
-                changeNumberRating(1, cardId)
+                changeNumberRating(1, cardId);
             }
             if (response === "down") {
-                changeNumberRating(-1, cardId)
+                changeNumberRating(-1, cardId);
             }
             if (response) {
                 changeButtons(cardId);
@@ -158,13 +161,45 @@ function changeRating(todo,cardId) {
 }
 // Изменение кнопок на визитках при нажатии
 function changeButtons(cardId) {
-    var txt = '<button class="btn btn-info btn-xs"><i class="glyphicon glyphicon-minus"></i></button>';
+    var txt = '<button class="btn btn-info btn-xs"><i class="glyphicon glyphicon-ok-circle"></i></button>';
     addText('minus-btn-' + cardId, txt);
-    txt = '<button class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i></button>';
+    txt = '<button class="btn btn-info btn-xs"><i class="glyphicon glyphicon-ok-circle"></i></button>';
     addText('plus-btn-' + cardId, txt);
 }
 // Изменение значения рейтинга
 function changeNumberRating(val, cardId) {
-    var txt = parseInt(cardsBlocks[i].cardRating) + parseInt(val);
+    var rating = getRatingById(cardId);
+    var txt = parseInt(rating) + parseInt(val);
     addText('rating-num-' + cardId, txt);
+}
+// Получить рейтинг визитки по её Id
+function getRatingById(cardId) {
+    var i = 0;
+    while (i < cardsCount) {
+        if (cardsBlocks[i].cardId == cardId) {
+            return cardsBlocks[i].cardRating;
+        }
+        i++;
+    }
+}
+// Проверка, какие визитки пользователь уже оценил
+function initRatingButtons() {
+    var ids = "";
+    var i = 0;
+    while (i < cardsCount) {
+        ids += cardsBlocks[i].cardId + "|";
+        i++;
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/Card/CheckRatingButtons',
+        dataType: 'json',
+        data: {
+            Count: cardsCount,
+            CardIds: ids
+        },
+        success: function (response) {
+            //alert(response);
+        }
+    });
 }
