@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Globalization;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Cards.Web.Helpers;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using Cards.Web.Models;
 
 namespace Cards.Web.Controllers
@@ -78,7 +71,7 @@ namespace Cards.Web.Controllers
             }
         }
 
-        public JsonResult ChangeRating()
+        public async Task<JsonResult> ChangeRating()
         {
             try
             {
@@ -87,16 +80,12 @@ namespace Cards.Web.Controllers
                 if (Session["rating" + cardId] == null)
                 {
                     Session["rating" + cardId] = "set";
+                    var currentCard = Context.Cards.Single(c => c.Id == cardId);
                     if (toDo.Equals("up"))
-                    {
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        //Рейтинг визитки cardId увеличен
-                    }
+                        currentCard.Rating++;
                     else
-                    {
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        //Рейтинг визитки cardId уменьшен
-                    }
+                        currentCard.Rating--;
+                    await Context.SaveChangesAsync();
                     return Json(toDo);
                 }
                 return Json(true);
