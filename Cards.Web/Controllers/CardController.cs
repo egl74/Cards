@@ -43,22 +43,7 @@ namespace Cards.Web.Controllers
         {
             try
             {
-                //проверка, что все параметры передаются верно
-                //System.Diagnostics.Debug.WriteLine("CardId: " + Request.Params["CardId"]);
-                //System.Diagnostics.Debug.WriteLine("CardTemplate: " + Request.Params["CardTemplate"]);
-                //System.Diagnostics.Debug.WriteLine("CardName: " + Request.Params["CardName"]);
-                //System.Diagnostics.Debug.WriteLine("CardInfoes: " + Request.Params["CardInfoes"]);
-                //System.Diagnostics.Debug.WriteLine("CardInfoesLength: " + Request.Params["CardInfoesLength"]);
-
-                ////тут строку CardInfoes разделяю на параметры: InfoId, PositionX, PositionY
-                //String[] buf = Request.Params["CardInfoes"].Split('|');
-                //int length = System.Int32.Parse(Request.Params["CardInfoesLength"]);
-                //for (int i = 0; i < length; i++)
-                //{
-                //    System.Diagnostics.Debug.WriteLine("InfoId = " + buf[0 + 3 * i]);
-                //    System.Diagnostics.Debug.WriteLine("PositionX = " + buf[1 + 3 * i]);
-                //    System.Diagnostics.Debug.WriteLine("PositionY = " + buf[2 + 3 * i]);
-                //}
+                //System.Diagnostics.Debug.WriteLine("Example");
 
                 var cardId = Convert.ToInt32(Request.Params["CardId"]);
                 var cardTemplate = Convert.ToInt32(Request.Params["CardTemplate"]);
@@ -90,6 +75,35 @@ namespace Cards.Web.Controllers
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public JsonResult ChangeRating()
+        {
+            try
+            {
+                var toDo = Request.Params["ToDo"];
+                var cardId = Convert.ToInt32(Request.Params["CardId"]);
+                if (Session["rating" + cardId] == null)
+                {
+                    Session["rating" + cardId] = "set";
+                    if (toDo.Equals("up"))
+                    {
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        //Рейтинг визитки cardId увеличен
+                    }
+                    else
+                    {
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        //Рейтинг визитки cardId уменьшен
+                    }
+                    return Json(toDo);
+                }
+                return Json(true);
+            }
+            catch (Exception)
+            {
+                return Json(false);
             }
         }
     }

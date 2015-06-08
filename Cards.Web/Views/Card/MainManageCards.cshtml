@@ -1,27 +1,17 @@
 ﻿@{
-    ViewBag.Title = "Card Edit";
+    ViewBag.Title = Resource.ManageCards;
 }
 
-<table>
+<table border="1">
     <tbody>
         <tr>
             <td>
-                <div class="container">
-                    <div class="picNewCard">
-                        <div class="newCard">
-                            <a href="/Card/CardTemplates">
-                                <img style="width: 100%;" src="~/Content/Images/newCard-btn.png" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                Тут будут мои визитки
             </td>
             <td>
-                <div class="container">
-                    <div class="seeCard">
-                        <img style="width: 100%;" src="~/Content/Images/seeMyCard-btn.png" />
-                    </div>
-                </div>
+                <a href="/Card/CardTemplates">
+                    Добавить визитку
+                </a>
             </td>
         </tr>
     </tbody>
@@ -35,28 +25,4 @@
         height: 60%;
         text-align: center;
     }
-
-    .newCard {
-        transition: opacity .5s, transform .5s;
-        transform: scale(.95, .95) rotate(0deg);
-        opacity: .9;
-    }
-
-        .newCard:hover {
-            transition: opacity .5s, transform .5s;
-            transform: scale(1, 1) rotate(2deg);
-            opacity: 1;
-        }
-
-    .seeCard {
-        transition: opacity .5s, transform .5s;
-        transform: scale(.95, .95) rotate(0deg);
-        opacity: .9;
-    }
-
-        .seeCard:hover {
-            transition: opacity .5s, transform .5s;
-            transform: scale(1, 1) rotate(-2deg);
-            opacity: 1;
-        }
 </style>

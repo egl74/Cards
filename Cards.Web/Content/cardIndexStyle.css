@@ -11,10 +11,23 @@ h2 {
     height: 204px;
     overflow-y: auto;
     overflow-x: hidden;
+    text-align: center;
 }
 
 .piccards {
     margin: 0 auto 0 auto;
     display: block;
     z-index: 1;
+}
+
+.cardRating {
+    font-size: 36px;
+    text-shadow: 1px 4px 3px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+    font-family: 'Comic Sans MS';
+    font-weight: bold;
+    margin: 15px;
+}
+
+.tableRating {
+    margin: auto;
 }

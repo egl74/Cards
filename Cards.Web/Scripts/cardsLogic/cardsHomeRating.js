@@ -5,8 +5,8 @@ function initCardsRating(cardsCnt, data) {
     cardsCount = cardsCnt;
     cardsBlocks = new Array();
     infoesBlocks = new Array();
-    width = 350;
-    height = 200;
+    width = 525;
+    height = 300;
     data = data.replace(new RegExp('\n', 'g'), "");
     data = data.replace(new RegExp("  ", 'g'), "");
     data = data.replace(new RegExp("<tr>", 'g'), "");
@@ -29,9 +29,9 @@ function initCardsRating(cardsCnt, data) {
         tmp = ['', '', '', '', '', '', '', '', ''];
     }
     infoesCount = infoesBlocks.length;
-    //alert(infoesCount + ":" + cardsBlocks.length);
     initMainTable();
     initImages(0);
+    initRating();
 }
 // Класс, задающий одну визитку
 function Card(cardId, cardTemplate, cardName, cardRating) {
@@ -73,7 +73,7 @@ function setData(data) {
 /////////////////////////////////////////////////////
 // Метод прорисовки главной таблицы
 function initMainTable() {
-    var tbl = '<table class="mainTable" border="1"><tbody>';
+    var tbl = '<table class="mainTable"><tbody>';
     var i = 0;
     while (i < cardsCount) {
         tbl += '<tr>'
@@ -82,7 +82,7 @@ function initMainTable() {
             + '<img name="piccard-' + i + '" id="piccard-' + i + '" class="piccards" src="" width="355" height="200" border="0" />'
             + '</div>'
             + '</td>'
-            + '<td style="width: 330px;">'
+            + '<td style="width: 250px;">'
             + '<div class="cardInfo" id="cardInfo-' + i + '">'
             + '</div>'
             + '</td>'
@@ -98,10 +98,10 @@ function initImages(i) {
         var pic = new Image();
         pic.src = '/Content/Images/Templates/' + cardsBlocks[i].cardTemplate + '.png';
         pic.onload = function () {
-            cardsBlocks[i].buffer.width = 525;
-            cardsBlocks[i].buffer.height = 300;
+            cardsBlocks[i].buffer.width = width;
+            cardsBlocks[i].buffer.height = height;
             cardsBlocks[i].buffer.context = cardsBlocks[i].buffer.getContext('2d');
-            cardsBlocks[i].buffer.context.drawImage(pic, 0, 0, 525, 300);
+            cardsBlocks[i].buffer.context.drawImage(pic, 0, 0, width, height);
             cardsBlocks[i].buffer.context.fillStyle = "#000000";
             cardsBlocks[i].buffer.context.textBaseline = "top";
             cardsBlocks[i].buffer.context.textAlign = "start";
@@ -117,9 +117,54 @@ function initImages(i) {
         }
     }
 }
-/////////////////////////////////////////////////////
-// template
-// width, height
-// canvas, context
-// textBlocks
-// clickedShape
+// Метод для отображения названий визиток и рейтинга
+function initRating() {
+    var txt = "";
+    var i = 0;
+    while (i < cardsCount) {
+        txt = "";
+        txt += '<h3>' + cardsBlocks[i].cardName + '</h3>'
+            + '<table class="tableRating"><tbody><tr><td id="minus-btn-' + cardsBlocks[i].cardId + '">'
+            + '<button class="btn btn-danger btn-xs" onclick="changeRating(\'down\',' + cardsBlocks[i].cardId + ')"><i class="glyphicon glyphicon-minus"></i></button>'
+            + '</td><td><div class="cardRating" id="rating-num-' + cardsBlocks[i].cardId + '">' + cardsBlocks[i].cardRating + '</div>'
+            + '</td><td id="plus-btn-' + cardsBlocks[i].cardId + '"><button class="btn btn-success btn-xs" onclick="changeRating(\'up\',' + cardsBlocks[i].cardId + ')"><i class="glyphicon glyphicon-plus"></i></button>'
+            + '</td></tr></tbody></table>';
+        addText('cardInfo-' + i, txt);
+        i++;
+    }
+}
+// Изменение рейтинга визитки
+function changeRating(todo,cardId) {
+    $.ajax({
+        type: 'POST',
+        url: '/Card/ChangeRating',
+        dataType: 'json',
+        data: {
+            ToDo: todo,
+            CardId: cardId
+        },
+        success: function (response) {
+            if (response === "up") {
+                changeNumberRating(1, cardId)
+            }
+            if (response === "down") {
+                changeNumberRating(-1, cardId)
+            }
+            if (response) {
+                changeButtons(cardId);
+            }
+        }
+    });
+}
+// Изменение кнопок на визитках при нажатии
+function changeButtons(cardId) {
+    var txt = '<button class="btn btn-info btn-xs"><i class="glyphicon glyphicon-minus"></i></button>';
+    addText('minus-btn-' + cardId, txt);
+    txt = '<button class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus"></i></button>';
+    addText('plus-btn-' + cardId, txt);
+}
+// Изменение значения рейтинга
+function changeNumberRating(val, cardId) {
+    var txt = parseInt(cardsBlocks[i].cardRating) + parseInt(val);
+    addText('rating-num-' + cardId, txt);
+}
