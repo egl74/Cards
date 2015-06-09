@@ -69,7 +69,7 @@ function setData(data) {
         }
     }
     if (cardId === -1) {
-        cardsBlocks.push(new Card(data[9], data[10], data[0], data[1], data[2], data[3]));
+        cardsBlocks.push(new Card(data[10], data[9], data[0], data[1], data[2], data[3]));
     }
     infoesBlocks.push(new CardInfo(data[0], data[4], data[5], data[6], data[7], data[8]));
 }
@@ -120,7 +120,7 @@ function initImages(i) {
         }
     }
 }
-// Метод для отображения названий визиток и рейтинга
+// Метод для отображения названий визиток, рейтинга и автора
 function initRating() {
     var txt = "";
     var i = 0;
@@ -131,7 +131,8 @@ function initRating() {
             + '<button class="btn btn-danger btn-xs" onclick="changeRating(\'down\',' + cardsBlocks[i].cardId + ')"><i class="glyphicon glyphicon-minus"></i></button>'
             + '</td><td><div class="cardRating" id="rating-num-' + cardsBlocks[i].cardId + '">' + cardsBlocks[i].cardRating + '</div>'
             + '</td><td id="plus-btn-' + cardsBlocks[i].cardId + '"><button class="btn btn-success btn-xs" onclick="changeRating(\'up\',' + cardsBlocks[i].cardId + ')"><i class="glyphicon glyphicon-plus"></i></button>'
-            + '</td></tr></tbody></table>';
+            + '</td></tr></tbody></table>'
+            + '<h5>Автор: <a href="#">' + cardsBlocks[i].userEmail + '</a></h5>';
         addText('cardInfo-' + i, txt);
         i++;
     }
@@ -199,7 +200,16 @@ function initRatingButtons() {
             CardIds: ids
         },
         success: function (response) {
-            //alert(response);
+            var tmp = "", i = 0;
+            while (i < response.length) {
+                tmp = "";
+                while (response[i] != '|') {
+                    tmp += response[i];
+                    i++;
+                }
+                changeButtons(tmp);
+                i++;
+            }
         }
     });
 }

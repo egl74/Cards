@@ -160,7 +160,7 @@
     <value>Управление визитками</value>
   </data>
   <data name="NoAccess" xml:space="preserve">
-    <value>У вас нет доступа к запршиваемой странице.</value>
+    <value>У вас нет доступа к запрашиваемой странице.</value>
   </data>
   <data name="ProfileIsEmpty" xml:space="preserve">
     <value>Профиль пуст</value>

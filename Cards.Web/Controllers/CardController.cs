@@ -38,10 +38,8 @@ namespace Cards.Web.Controllers
                 //var cardInfoes = Request.Params["CardInfoes"];
                 var cardInfoesLength = Convert.ToInt32(Request.Params["CardInfoesLength"]);
                 String[] buf = Request.Params["CardInfoes"].Split('|');
-
                 Card card = cardId == 0 ? Context.Cards.Add(new Card {Template = cardTemplate, Name = cardName, UserId = User.Identity.GetUserId()}) : Context.Cards.Single(c => c.Id == cardId);
                 card.CardInfoes.Clear();
-
                 for (int i = 0; i < cardInfoesLength; i++)
                 {
                     var infoId = Convert.ToInt32(buf[0 + 3 * i]);
@@ -57,7 +55,6 @@ namespace Cards.Web.Controllers
                 }
                 Context.SaveChanges();
                 Session["createdNewCard"] = "yes";
-
                 return Json(true);
             }
             catch (Exception)

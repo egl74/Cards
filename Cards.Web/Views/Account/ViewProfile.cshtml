@@ -53,17 +53,18 @@
     </div>
 
     <link rel="stylesheet" href="~/Content/viewProfileStyle.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/jquery-ui.css" type="text/css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui.js"></script>
     <script type="text/javascript">
-        
-        $(function () {
-            $(document).tooltip({
-                track: true
-            });
-        });
 
         jQuery(document).ready(function ($) {
+
+            $(function () {
+                $(document).tooltip({
+                    track: true
+                });
+            });
 
             if ($('#infos tr').length == 0) {
                 var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
@@ -91,8 +92,8 @@
                     foreach (var item in Enum.GetValues(typeof (FieldType)))
                     {
                         @:var option = ('<option value="@i">@item</option>');
-                        @:selector = selector.concat(option);
-                        i++;
+                                        @:selector = selector.concat(option);
+                                        i++;
                     }
                 }
                 selector.concat('</select>');
@@ -201,8 +202,8 @@
                     foreach (var item in Enum.GetValues(typeof (FieldType)))
                     {
                         @:var option = ('<option value="@j">@item</option>');
-                        @:selector = selector.concat(option);
-                        j++;
+                                        @:selector = selector.concat(option);
+                                        j++;
                     }
                 }
                 selector.concat('</select>');
