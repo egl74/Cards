@@ -132,8 +132,8 @@
                                     '<button class="btn btn-danger del-btn" id="del-btn-' + id + '">@Resource.Delete</button></div></td></tr>';
                                 $('#infos').append(tr);
                                 $('#table').show();
-                                CreateAddButton();
                                 $('#empty').remove();
+                                CreateAddButton();
                             } else {
                                 alert('');
                             }
@@ -169,9 +169,9 @@
                         if (response) {
                             tr.remove();
                             if ($('#infos tr').length == 0) {
-                                var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
+                                var emptymsg = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
                                 $('#table').hide();
-                                $('#infos').append(empty);
+                                $('#infos').append(emptymsg);
                             }
                         };
                     },

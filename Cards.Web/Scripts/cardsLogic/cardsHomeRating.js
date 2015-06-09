@@ -132,7 +132,7 @@ function initRating() {
             + '</td><td><div class="cardRating" id="rating-num-' + cardsBlocks[i].cardId + '">' + cardsBlocks[i].cardRating + '</div>'
             + '</td><td id="plus-btn-' + cardsBlocks[i].cardId + '"><button class="btn btn-success btn-xs" onclick="changeRating(\'up\',' + cardsBlocks[i].cardId + ')"><i class="glyphicon glyphicon-plus"></i></button>'
             + '</td></tr></tbody></table>'
-            + '<h5>Автор: <a href="#">' + cardsBlocks[i].userEmail + '</a></h5>';
+            + '<h5>Автор: <a href="/Account/ViewProfile?userId=' + cardsBlocks[i].userId + '">' + cardsBlocks[i].userEmail + '</a></h5>';
         addText('cardInfo-' + i, txt);
         i++;
     }
