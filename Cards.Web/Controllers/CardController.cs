@@ -10,9 +10,11 @@ namespace Cards.Web.Controllers
     public class CardController : BaseController
     {
 
-        public ActionResult MainManageCards()
+        public ActionResult ManageCards()
         {
-            return View();
+            string currentUserId = User.Identity.GetUserId();
+            var model = Context.Cards.Where(i => i.UserId == currentUserId).ToList();
+            return View(model);
         }
 
         public ActionResult CardTemplates()

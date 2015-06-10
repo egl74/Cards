@@ -277,7 +277,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\ViewProfile.cshtml" />
     <Content Include="Views\Card\CardTemplates.cshtml" />
-    <Content Include="Views\Card\MainManageCards.cshtml" />
+    <Content Include="Views\Card\ManageCards.cshtml" />
     <Content Include="Views\Card\EditCard.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
   </ItemGroup>
