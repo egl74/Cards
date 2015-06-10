@@ -186,4 +186,13 @@
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="IsBlocked" xml:space="preserve">
+    <value>Blocked</value>
+  </data>
+  <data name="SaveSuccessful" xml:space="preserve">
+    <value>Successfully saved!</value>
+  </data>
 </root>

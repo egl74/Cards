@@ -159,8 +159,31 @@ namespace Cards.Web.Controllers
         [OwnerOrAdminFilter]
         public ActionResult ViewProfile(string userId)
         {
+            if (userId == null)
+                return RedirectToAction("Index", "Home");
             var infos = Context.Infoes.Where(i => i.UserId == userId);
+            var currentUserId = User.Identity.GetUserId();
+            ViewBag.IsAdmin = Context.Users.Single(u => u.Id == userId).IsAdmin;
+            ViewBag.IsBlocked = Context.Users.Single(u => u.Id == userId).IsBlocked;
+            ViewBag.CanManage = Context.Users.Single(u => u.Id == currentUserId).IsAdmin;
             return View(new ProfileViewModel{Infos = infos, UserId = userId});
+        }
+
+        [Authorize]
+        public JsonResult ManageStatus(User userdata)
+        {
+            try
+            {
+                var user = Context.Users.Single(u => u.Id == userdata.Id);
+                user.IsAdmin = userdata.IsAdmin;
+                user.IsBlocked = userdata.IsBlocked;
+                Context.SaveChanges();
+                return Json(true);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         [Authorize]

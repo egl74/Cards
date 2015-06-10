@@ -79,6 +79,15 @@ namespace Cards.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        public static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string Author {
@@ -147,6 +156,15 @@ namespace Cards.Resources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blocked.
+        /// </summary>
+        public static string IsBlocked {
+            get {
+                return ResourceManager.GetString("IsBlocked", resourceCulture);
             }
         }
         
@@ -246,6 +264,15 @@ namespace Cards.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully saved!.
+        /// </summary>
+        public static string SaveSuccessful {
+            get {
+                return ResourceManager.GetString("SaveSuccessful", resourceCulture);
             }
         }
         
