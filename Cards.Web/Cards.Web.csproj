@@ -224,6 +224,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cardsLogic\cardEditLogic.js" />
     <Content Include="Scripts\cardsLogic\cardsHomeRating.js" />
+    <Content Include="Scripts\cardsLogic\cardsManageLogic.js" />
     <Content Include="Scripts\cardsLogic\cardTemplatesLogic.js" />
     <Content Include="Scripts\coffee-script.js" />
     <Content Include="Scripts\cookie_logic.js" />

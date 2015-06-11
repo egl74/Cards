@@ -2,7 +2,14 @@
 @model Cards.Web.Models.ProfileViewModel
 
 @{
-    ViewBag.Title = "Profile " + Model.Infos.First().User.Email;
+    if (Model.Infos.Count() != 0)
+    {
+        ViewBag.Title = "Profile " + Model.Infos.First().User.Email;
+    }
+    else
+    {
+        ViewBag.Title = "Profile";
+    }
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -69,111 +76,148 @@
     <script src="~/Scripts/jquery-ui.js"></script>
     <script type="text/javascript">
 
-    jQuery(document).ready(function ($) {
+        jQuery(document).ready(function ($) {
 
-        $(function () {
-            $(document).tooltip({
-                track: true
+            $(function () {
+                $(document).tooltip({
+                    track: true
+                });
             });
-        });
 
-        $(function() {
-            var isAdmin = '@ViewBag.IsAdmin' == 'True' ? true : false;
-            var isBlocked = '@ViewBag.IsBlocked' == 'True' ? true : false;
-            $('#is-admin').prop('checked', isAdmin);
-            $('#is-blocked').prop('checked', isBlocked);
-        });
-
-
-        $('body').on('click', '#save-status-btn', function() {
-            var data = {
-                IsAdmin: $('#is-admin').prop('checked'),
-                IsBlocked: $('#is-blocked').prop('checked'),
-                Id: '@Model.UserId'
-            };
-            $.ajax({
-                type: 'POST',
-                url: '/Account/ManageStatus',
-                dataType: 'json',
-                data: data,
-                success: function(response) {
-                    if (response == true)
-                        alert('@Resource.SaveSuccessful');
-                }
+            $(function () {
+                var isAdmin = '@ViewBag.IsAdmin' == 'True' ? true : false;
+                var isBlocked = '@ViewBag.IsBlocked' == 'True' ? true : false;
+                $('#is-admin').prop('checked', isAdmin);
+                $('#is-blocked').prop('checked', isBlocked);
             });
-        });
 
-        if ($('#infos tr').length == 0) {
-            var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
-            $('#table').hide();
-            $('#infos').append(empty);
-        }
 
-        self.CreateAddButton = function () {
-            $('#add-div').html('<button class="btn btn-success" id="add-btn"><i class="glyphicon glyphicon-plus"></i> @Resource.AddNewInfo</button>');
-
-            $('#add-btn').click(function () {
-                $('#add-div').html();
-                self.CreateAddInputs();
+            $('body').on('click', '#save-status-btn', function () {
+                var data = {
+                    IsAdmin: $('#is-admin').prop('checked'),
+                    IsBlocked: $('#is-blocked').prop('checked'),
+                    Id: '@Model.UserId'
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/ManageStatus',
+                    dataType: 'json',
+                    data: data,
+                    success: function (response) {
+                        if (response == true)
+                            alert('@Resource.SaveSuccessful');
+                    }
+                });
             });
-        }
 
-        self.CreateAddButton();
+            if ($('#infos tr').length == 0) {
+                var empty = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
+                $('#table').hide();
+                $('#infos').append(empty);
+            }
 
-        self.CreateAddInputs = function () {
-            var content = '<input class="form-control" id="newcontent" placeholder=@Resource.Field... />';
-            var comment = '<input class="form-control" id="newcomment" placeholder=@Resource.Comment... />';
-            var selector = '<select class="form-control" id="Type" name="Type" required>';
-            @{
+            self.CreateAddButton = function () {
+                $('#add-div').html('<button class="btn btn-success" id="add-btn"><i class="glyphicon glyphicon-plus"></i> @Resource.AddNewInfo</button>');
+
+                $('#add-btn').click(function () {
+                    $('#add-div').html();
+                    self.CreateAddInputs();
+                });
+            }
+
+            self.CreateAddButton();
+
+            self.CreateAddInputs = function () {
+                var content = '<input class="form-control" id="newcontent" placeholder=@Resource.Field... />';
+                var comment = '<input class="form-control" id="newcomment" placeholder=@Resource.Comment... />';
+                var selector = '<select class="form-control" id="Type" name="Type" required>';
+                @{
                     var i = 0;
                     foreach (var item in Enum.GetValues(typeof (FieldType)))
                     {
                         @:var option = ('<option value="@i">@item</option>');
-                                                                            @:selector = selector.concat(option);
-                                                                            i++;
+                                                                                            @:selector = selector.concat(option);
+                                                                                            i++;
                     }
                 }
-            selector.concat('</select>');
-            var buttons = '<div class=" btn-group" role="group" id="actions">' +
-                '<button class="btn btn-primary edt-btn" id="savenew-btn">@Resource.Save</button>' +
-                '<button class="btn btn-danger cancel-btn" id="cancelnew-btn">@Resource.Cancel</button>' +
-                '</div>';
+                selector.concat('</select>');
+                var buttons = '<div class=" btn-group" role="group" id="actions">' +
+                    '<button class="btn btn-primary edt-btn" id="savenew-btn">@Resource.Save</button>' +
+                    '<button class="btn btn-danger cancel-btn" id="cancelnew-btn">@Resource.Cancel</button>' +
+                    '</div>';
 
-            var table = '<table class="table table-bordered"><tbody><tr><th>' + content + '</th><th>' + comment + '</th><th>' + selector + '</th><th>' + buttons + '</th></tr></tbody>';
+                var table = '<table class="table table-bordered"><tbody><tr><th>' + content + '</th><th>' + comment + '</th><th>' + selector + '</th><th>' + buttons + '</th></tr></tbody>';
 
-            $('#add-div').html(table);
+                $('#add-div').html(table);
 
-            $('#savenew-btn').click(function () {
+                $('#savenew-btn').click(function () {
+                    var data = {
+                        Id: '@Model.UserId',
+                        Content: $('#newcontent').val(),
+                        Comment: $('#newcomment').val(),
+                        Type: $('#Type').val()
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Account/AddInfo',
+                        dataType: 'json',
+                        data: data,
+                        success: function (response) {
+                            if (response.Id != null) {
+                                var id = response.Id;
+                                var newcontent = response.Content;
+                                var newcomment = response.Comment == null ? "" : response.Comment;
+                                var type = $('#Type option:selected').text();
+                                var value = $('#Type option:selected').val();
+                                var tr = '<tr id="info-' + id + '"><td id="content-' + id + '" data-toggle="tooltip" title=' + newcomment + '>' + newcontent + '</td>' +
+                                    '<td id="type-' + id + '" value=' + value + '>' + type + '</td>' +
+                                    '<td id="action-' + id + '"><div class=" btn-group" role="group">' +
+                                    '<button class="btn btn-warning edt-btn" id="edt-btn-' + id + '">@Resource.Edit</button>' +
+                                    '<button class="btn btn-danger del-btn" id="del-btn-' + id + '">@Resource.Delete</button></div></td></tr>';
+                                $('#infos').append(tr);
+                                $('#table').show();
+                                $('#empty').remove();
+                                CreateAddButton();
+                            } else {
+                                alert('');
+                            }
+                        },
+                        error: function () {
+                            alert('');
+                        }
+                    });
+                });
+
+                $('#cancelnew-btn').click(function () {
+                    CreateAddButton();
+                });
+            }
+
+            $('body').on('click', '.edt-btn', function () {
+                var savedTr = $(this).parent().parent().parent();
+                createEditRow(savedTr);
+            });
+
+            $('body').on('click', '.del-btn', function () {
+                var tr = $(this).parent().parent().parent();
+                var rowId = $(this).attr("id").replace('del-btn-', '');
                 var data = {
-                    Id: '@Model.UserId',
-                    Content: $('#newcontent').val(),
-                    Comment: $('#newcomment').val(),
-                    Type: $('#Type').val()
-                };
+                    Id: rowId
+                }
                 $.ajax({
                     type: 'POST',
-                    url: '/Account/AddInfo',
+                    url: '/Account/DeleteInfo',
                     dataType: 'json',
                     data: data,
                     success: function (response) {
-                        if (response.Id != null) {
-                            var id = response.Id;
-                            var newcontent = response.Content;
-                            var newcomment = response.Comment == null ? "" : response.Comment;
-                            var type = $('#Type option:selected').text();
-                            var value = $('#Type option:selected').val();
-                            var tr = '<tr id="info-' + id + '"><td id="content-' + id + '" data-toggle="tooltip" title=' + newcomment + '>' + newcontent + '</td>' +
-                                '<td id="type-' + id + '" value=' + value + '>' + type + '</td>' +
-                                '<td id="action-' + id + '"><div class=" btn-group" role="group">' +
-                                '<button class="btn btn-warning edt-btn" id="edt-btn-' + id + '">@Resource.Edit</button>' +
-                                '<button class="btn btn-danger del-btn" id="del-btn-' + id + '">@Resource.Delete</button></div></td></tr>';
-                            $('#infos').append(tr);
-                            $('#table').show();
-                            $('#empty').remove();
-                            CreateAddButton();
-                        } else {
-                            alert('');
-                        }
+                        if (response) {
+                            tr.remove();
+                            if ($('#infos tr').length == 0) {
+                                var emptymsg = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
+                                $('#table').hide();
+                                $('#infos').append(emptymsg);
+                            }
+                        };
                     },
                     error: function () {
                         alert('');
@@ -181,112 +225,75 @@
                 });
             });
 
-            $('#cancelnew-btn').click(function () {
-                CreateAddButton();
-            });
-        }
+            function createEditRow(tr) {
+                var html = tr.html();
 
-        $('body').on('click', '.edt-btn', function () {
-            var savedTr = $(this).parent().parent().parent();
-            createEditRow(savedTr);
-        });
+                var rowId = tr.attr("id").replace('info-', '');
 
-        $('body').on('click', '.del-btn', function () {
-            var tr = $(this).parent().parent().parent();
-            var rowId = $(this).attr("id").replace('del-btn-', '');
-            var data = {
-                Id: rowId
-            }
-            $.ajax({
-                type: 'POST',
-                url: '/Account/DeleteInfo',
-                dataType: 'json',
-                data: data,
-                success: function (response) {
-                    if (response) {
-                        tr.remove();
-                        if ($('#infos tr').length == 0) {
-                            var emptymsg = '@Html.Label(Resource.ProfileIsEmpty, new {id = "empty"})';
-                            $('#table').hide();
-                            $('#infos').append(emptymsg);
-                        }
-                    };
-                },
-                error: function () {
-                    alert('');
-                }
-            });
-        });
+                var content = $('#content-' + rowId).html();
+                $('#content-' + rowId).html('<div class="edit-block-1"><input type="text" id="field-' + rowId + '" class="form-control" placeholder=@Resource.Field... value="' + content + '"/></div>' +
+                    '<div class="edit-block-2"><input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + $('#content-' + rowId).attr('title') + '"/></div>');
 
-        function createEditRow(tr) {
-            var html = tr.html();
-
-            var rowId = tr.attr("id").replace('info-', '');
-
-            var content = $('#content-' + rowId).html();
-            $('#content-' + rowId).html('<div class="edit-block-1"><input type="text" id="field-' + rowId + '" class="form-control" placeholder=@Resource.Field... value="' + content + '"/></div>' +
-                '<div class="edit-block-2"><input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + $('#content-' + rowId).attr('title') + '"/></div>');
-
-            @*var c = $('#content-' + rowId);
+                @*var c = $('#content-' + rowId);
                 c.append('<input type="text" id="comment-' + rowId + '" class="form-control" placeholder=@Resource.Comment... value="' + c.attr('title') + '"/>');*@
 
-            $('#content-' + rowId).attr('title', '');
+                $('#content-' + rowId).attr('title', '');
 
 
-            var selector = '<select class="form-control" id="editType-' + rowId + '" name="editType" required>';
-            @{
+                var selector = '<select class="form-control" id="editType-' + rowId + '" name="editType" required>';
+                @{
                     var j = 0;
                     foreach (var item in Enum.GetValues(typeof (FieldType)))
                     {
                         @:var option = ('<option value="@j">@item</option>');
-                                                                            @:selector = selector.concat(option);
-                                                                            j++;
+                                                                                            @:selector = selector.concat(option);
+                                                                                            j++;
                     }
                 }
-            selector.concat('</select>');
+                selector.concat('</select>');
 
-            var type = $('#type-' + rowId).attr("value");
-            $('#type-' + rowId).html(selector);
-            $('#editType-' + rowId).val(type);
+                var type = $('#type-' + rowId).attr("value");
+                $('#type-' + rowId).html(selector);
+                $('#editType-' + rowId).val(type);
 
-            var actionTd = $('#action-' + rowId).html('');
+                var actionTd = $('#action-' + rowId).html('');
 
-            var saveBtn = $('<button type="button" class="btn btn-primary" id="save-' + rowId + '">@Resource.Save</button>').appendTo(actionTd);
+                var saveBtn = $('<button type="button" class="btn btn-primary" id="save-' + rowId + '">@Resource.Save</button>').appendTo(actionTd);
 
-            saveBtn.click(function () {
+                saveBtn.click(function () {
 
-                var data = {
-                    Id: rowId,
-                    Content: $('#field-' + rowId).val(),
-                    Comment: $('#comment-' + rowId).val(),
-                    Type: $('#editType-' + rowId).val()
-                };
+                    var data = {
+                        Id: rowId,
+                        Content: $('#field-' + rowId).val(),
+                        Comment: $('#comment-' + rowId).val(),
+                        Type: $('#editType-' + rowId).val()
+                    };
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/Account/EditInfo',
-                    dataType: 'json',
-                    data: data,
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Account/EditInfo',
+                        dataType: 'json',
+                        data: data,
+                    });
+                    data.TypeText = $('#editType-' + rowId).children(':selected').text();
+                    tr.html(createTrEditRow(data));
                 });
-                data.TypeText = $('#editType-' + rowId).children(':selected').text();
-                tr.html(createTrEditRow(data));
-            });
 
-            var cancelBtn = $('<button type="button" class="btn btn-danger" id="cncl-' + rowId + '">@Resource.Cancel</button>').appendTo(actionTd);
-            cancelBtn.click(function () {
-                tr.html(html);
-            });
-        };
-        function createTrEditRow(obj) {
-            var result = '';
+                var cancelBtn = $('<button type="button" class="btn btn-danger" id="cncl-' + rowId + '">@Resource.Cancel</button>').appendTo(actionTd);
+                cancelBtn.click(function () {
+                    tr.html(html);
+                });
+            };
+            function createTrEditRow(obj) {
+                var result = '';
 
-            result += '<td id="content-' + obj.Id + '" data-toggle="tooltip" title=' + obj.Comment + '>' + obj.Content + '</td>';
-            result += '<td value=' + obj.Type + ' id="type-' + obj.Id + '">' + obj.TypeText + '</td>';
-            result += '<td id="action-' + obj.Id + '"><div class=" btn-group" role="group"><button class="btn btn-warning edt-btn" id="edt-btn-' + obj.Id + '">@Resource.Edit</button>' +
-                '<button class="btn btn-danger del-btn" id="del-btn-' + obj.Id + '">@Resource.Delete</button></div></td>';
-            return result;
-        }
-    });
+                result += '<td id="content-' + obj.Id + '" data-toggle="tooltip" title=' + obj.Comment + '>' + obj.Content + '</td>';
+                result += '<td value=' + obj.Type + ' id="type-' + obj.Id + '">' + obj.TypeText + '</td>';
+                result += '<td id="action-' + obj.Id + '"><div class=" btn-group" role="group"><button class="btn btn-warning edt-btn" id="edt-btn-' + obj.Id + '">@Resource.Edit</button>' +
+                    '<button class="btn btn-danger del-btn" id="del-btn-' + obj.Id + '">@Resource.Delete</button></div></td>';
+                return result;
+            }
+        });
 
     </script>
 
