@@ -50,7 +50,7 @@
                 <div class="mainDiv" id="mainDiv"></div>
             </div>
             <div class="col-md-4">
-                <button class="btn btn-success" onclick="document.location.replace('/Card/CardTemplates')"><i class="glyphicon glyphicon-plus"></i> @Resource.CreateNewCard</button>
+                <button class="btn btn-success" onclick="document.location.replace('/Card/EditCard')"><i class="glyphicon glyphicon-plus"></i> @Resource.CreateNewCard</button>
             </div>
         </div>
     </div>
@@ -131,6 +131,20 @@
                 if(response) {
                     document.location.reload();
                 }
+            }
+        });
+    }
+
+    function toEditCard(cardId) {
+        $.ajax({
+            type: 'POST',
+            url: '/Card/PreEditCard',
+            dataType: 'json',
+            data: {
+                CardId: cardId
+            },
+            success: function (response) {
+                //document.location.replace('/Card/EditCard');
             }
         });
     }

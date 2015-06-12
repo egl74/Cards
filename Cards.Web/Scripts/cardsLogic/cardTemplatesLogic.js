@@ -17,7 +17,7 @@ function initCanvas() {
             buffer.context.strokeRect(((i - 1) / 2 * 272) + 9, 169, 264, 152);
         }
     }
-    canvas = document.getElementById("canv1");
+    canvas = document.getElementById("templateCanvas");
     context = canvas.getContext("2d");
     canvas.width = Math.floor(window.innerWidth * .8);
     canvas.height = height;

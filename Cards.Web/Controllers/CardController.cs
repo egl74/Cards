@@ -17,9 +17,17 @@ namespace Cards.Web.Controllers
             return View(model);
         }
 
-        public ActionResult CardTemplates()
+        public JsonResult PreEditCard()
         {
-            return View();
+            try
+            {
+                var cardId = Convert.ToInt32(Request.Params["CardId"]);
+                return Json(true);
+            }
+            catch (Exception)
+            {
+                return Json(false);
+            }
         }
 
         public ActionResult EditCard()

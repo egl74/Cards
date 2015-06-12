@@ -75,42 +75,56 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/cardsLogic/cardEditLogic.js" type="text/javascript" charset="utf-8"></script>
+
+@if (Session["templateEditCard"] != null)
+{
+    <script type="text/javascript">
+        template = Session["templateEditCard"];
+    </script>
+    Session["templateEditCard"] = null;
+}
+else
+{
+    <script type="text/javascript">
+        template = 1;
+    </script>
+}
+
 <script type="text/javascript">
-    template = @Request.Params["template"];
 
     initCanvas();
 
     function preAddTextBlock(infoId) {
-        var infoContent = $('#type-'+infoId).val();
-        var infoType = $('#content-'+infoId).val();
+        var infoContent = $('#type-' + infoId).val();
+        var infoType = $('#content-' + infoId).val();
         addTextBlock(infoId, infoContent, infoType);
         checkAllButtons();
     };
 
-    function addText(tag,txt){
-        document.getElementById(tag).innerHTML=txt;
+    function addText(tag, txt) {
+        document.getElementById(tag).innerHTML = txt;
     }
 
     function saveCard() {
         var msg = '<div class="alert alert-danger" role="alert">';
         var err = 0;
-        if($('#cardnameinput').val() === '') {
+        if ($('#cardnameinput').val() === '') {
             msg += '<i class="glyphicon glyphicon-exclamation-sign"></i> Вы не ввели название<br />';
             err = 1;
         }
-        if(textBlocks.length === 0) {
+        if (textBlocks.length === 0) {
             msg += '<i class="glyphicon glyphicon-exclamation-sign"></i> На визитке должно быть хотя бы 1 поле';
             err = 1;
         }
         msg += '</div>';
-        if(err === 1) {
+        if (err === 1) {
             addText('error-msgs', msg);
         } else {
             addText('error-msgs', '');
             var length = textBlocks.length;
             var cardInfo = '';
             for (i = 0; i < length; i++)
-                cardInfo += "" + textBlocks[i].infoId + "|" + (textBlocks[i].x-5) + "|" + (textBlocks[i].y-5) + "|";
+                cardInfo += "" + textBlocks[i].infoId + "|" + (textBlocks[i].x - 5) + "|" + (textBlocks[i].y - 5) + "|";
             $.ajax({
                 type: 'POST',
                 url: '/Card/SaveInfo',
@@ -123,7 +137,7 @@
                     CardInfoesLength: length
                 },
                 success: function (response) {
-                    if(response) {
+                    if (response) {
                         document.location.replace("/Card/ManageCards");
                     } else {
                         var msg = '<div class="alert alert-danger" role="alert">';
