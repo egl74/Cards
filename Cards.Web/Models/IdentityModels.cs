@@ -68,7 +68,7 @@ namespace Cards.Web.Models
     {
         public int Id { get; set; }
         public int CardId { get; set; }
-        public int InfoId { get; set; }
+        public int? InfoId { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
 
@@ -107,7 +107,7 @@ namespace Cards.Web.Models
                         .HasRequired(t => t.Info)
                         .WithMany(t => t.CardInfoes)
                         .HasForeignKey(d => d.InfoId)
-                        .WillCascadeOnDelete(true);
+                        .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

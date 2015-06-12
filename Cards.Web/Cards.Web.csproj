@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201506120655387_LockedOut.Designer.cs">
       <DependentUpon>201506120655387_LockedOut.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506121435224_CardDelete.cs" />
+    <Compile Include="Migrations\201506121435224_CardDelete.Designer.cs">
+      <DependentUpon>201506121435224_CardDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -309,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506120655387_LockedOut.resx">
       <DependentUpon>201506120655387_LockedOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506121435224_CardDelete.resx">
+      <DependentUpon>201506121435224_CardDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

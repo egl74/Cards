@@ -126,8 +126,9 @@ namespace Cards.Web.Controllers
             try
             {
                 var cardId = Convert.ToInt32(Request.Params["CardId"]);
-                //!!!!!!!!!!!!!!!!Удалить визитку cardId
-                //System.Diagnostics.Debug.WriteLine("id: " + cardId);
+                var card = Context.Cards.Single(c => c.Id == cardId);
+                Context.Cards.Remove(card);
+                Context.SaveChanges();
                 return Json(true);
             }
             catch (Exception)
