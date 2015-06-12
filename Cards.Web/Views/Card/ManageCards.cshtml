@@ -9,12 +9,15 @@
 {
     Session["createdNewCard"] = null;
     <br />
-    <div id="error-msgs" class="error-msgs">
+    <div class="error-msgs">
         <div class="alert alert-success" role="alert">
-            <i class="glyphicon glyphicon-ok-circle"></i> Новая визитка успешно сохранена!
+            <i class="glyphicon glyphicon-ok-circle"></i> @Resource.NewCardSaveSuccess!
         </div>
     </div>
 }
+<br />
+<div id="error-msgs" class="error-msgs">
+</div>
 
 @if (Model.Count() != 0)
 {
@@ -47,29 +50,42 @@
                 <div class="mainDiv" id="mainDiv"></div>
             </div>
             <div class="col-md-4">
-                <a href="/Card/CardTemplates">
-                    Добавить визитку
-                </a>
+                <button class="btn btn-success" onclick="document.location.replace('/Card/CardTemplates')"><i class="glyphicon glyphicon-plus"></i> @Resource.CreateNewCard</button>
             </div>
         </div>
     </div>
 </div>
 
 <style type="text/css">
-
     .allinfo {
         margin: 30px auto 0 auto;
         text-align: center;
     }
 
     .mainDiv {
-        margin-left: 70px;
+        margin-left: 50px;
     }
 
     .error-msgs {
         width: 500px;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .cardInfo {
+        background-color: rgba(120,120,120,.3);
+        border-radius: 15px 15px 0 0;
+        margin-top: 8px;
+    }
+
+    .ratingNum {
+        background-color: rgba(255,255,255,.2);
+        border-radius: 0 15px 0 0;
+    }
+
+    .card-btns {
+        background-color: rgba(120,120,120,.3);
+        border-radius: 0 15px 15px 0;
     }
 </style>
 
@@ -84,5 +100,39 @@
     }
 
     initCardsRating(@Model.Count(), $('#cards').html().toString());
+
+    function showDelConfirmMsg(cardId) {
+        var txt = '<div class="alert alert-danger" role="alert">'
+            + '<i class="glyphicon glyphicon-exclamation-sign"></i> @Resource.ConfirmDelCard'
+            + '<br /><br /><table style="width: 100%; text-align: center;"><tbody><tr><td>'
+            + '<button class="btn btn-success" style="width: 70px;" onclick="deleteCard(' + cardId + ')"><i class="glyphicon glyphicon-ok-sign"></i></button>'
+            + '</td><td>'
+            + '<button class="btn btn-warning" style="width: 70px;" onclick="hideDelConfirmMsg()"><i class="glyphicon glyphicon-remove-sign"></i></button>'
+            + '</td></tr></tbody></table>'
+            + '</div>';
+        addText('error-msgs', txt);
+    }
+
+    function hideDelConfirmMsg() {
+        addText('error-msgs', '');
+    }
+
+    function deleteCard(cardId) {
+        hideDelConfirmMsg();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Card/DeleteCard',
+            dataType: 'json',
+            data: {
+                CardId: cardId
+            },
+            success: function (response) {
+                if(response) {
+                    document.location.reload();
+                }
+            }
+        });
+    }
 
 </script>

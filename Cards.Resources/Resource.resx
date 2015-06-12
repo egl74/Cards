@@ -201,4 +201,13 @@
   <data name="LockedOut" xml:space="preserve">
     <value>Locked out</value>
   </data>
+  <data name="ConfirmDelCard" xml:space="preserve">
+    <value>Card will be removed permanently. Confirm deletion?</value>
+  </data>
+  <data name="NewCardSaveSuccess" xml:space="preserve">
+    <value>A new card has been saved successfully</value>
+  </data>
+  <data name="CreateNewCard" xml:space="preserve">
+    <value>Create a new card</value>
+  </data>
 </root>

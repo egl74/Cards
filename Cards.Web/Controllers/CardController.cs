@@ -96,7 +96,6 @@ namespace Cards.Web.Controllers
             {
                 var cardsCount = Convert.ToInt32(Request.Params["Count"]);
                 String[] buf = Request.Params["CardIds"].Split('|');
-                System.Diagnostics.Debug.WriteLine("Count: " + cardsCount);
                 var ids = ""; 
                 for (int i = 0; i < cardsCount; i++)
                 {
@@ -106,8 +105,22 @@ namespace Cards.Web.Controllers
                         ids += cardId + "|";
                     }
                 }
-                System.Diagnostics.Debug.WriteLine("ids: " + ids);
                 return Json(ids);
+            }
+            catch (Exception)
+            {
+                return Json(false);
+            }
+        }
+
+        public JsonResult DeleteCard()
+        {
+            try
+            {
+                var cardId = Convert.ToInt32(Request.Params["CardId"]);
+                //!!!!!!!!!!!!!!!!Удалить визитку cardId
+                //System.Diagnostics.Debug.WriteLine("id: " + cardId);
+                return Json(true);
             }
             catch (Exception)
             {

@@ -201,4 +201,13 @@
   <data name="LockedOut" xml:space="preserve">
     <value>Заблокирован</value>
   </data>
+  <data name="ConfirmDelCard" xml:space="preserve">
+    <value>Визитка будет удалена безвозвратно. Подтверждаете удаление?</value>
+  </data>
+  <data name="NewCardSaveSuccess" xml:space="preserve">
+    <value>Новая визитка успешно сохранена</value>
+  </data>
+  <data name="CreateNewCard" xml:space="preserve">
+    <value>Создать новую визитку</value>
+  </data>
 </root>

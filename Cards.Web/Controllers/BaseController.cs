@@ -66,7 +66,7 @@ namespace Cards.Web.Controllers
                 }
                 Response.Cookies.Add(cookie);
                 Session["culture"] = culture;
-                System.Diagnostics.Debug.WriteLine("Hello, world! This culture: " + culture);
+                //System.Diagnostics.Debug.WriteLine("Hello, world! This culture: " + culture);
                 return "true";
             }
             catch (Exception)

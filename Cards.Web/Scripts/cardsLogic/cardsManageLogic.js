@@ -77,11 +77,14 @@ function initMainTable() {
     while (i < cardsCount) {
         tbl += '<tr><td>'
             + '<div class="cardInfo" id="cardInfo-' + i + '">'
-            + '</td></tr><tr><td>'
+            + '</td><td style="width: 80px;"></td></tr><tr><td>'
             + '<div class="canvases">'
             + '<img name="piccard-' + i + '" id="piccard-' + i + '" class="piccards" src="" width="355" height="200" border="0" />'
             + '</div>'
-            + '</div>'
+            + '</td><td class="card-btns">'
+            + '<button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button>'
+            + '<br /><br />'
+            + '<button class="btn btn-danger" onclick="showDelConfirmMsg(' + cardsBlocks[i].cardId + ');scroll(0,0)"><i class="glyphicon glyphicon-remove"></i></button>'
             + '</td></tr>';
         i++;
     }
@@ -121,8 +124,8 @@ function initRating() {
         txt = "";
         txt += '<table style="width: 100%;"><tbody><tr><td>'
             + '<h5>' + cardsBlocks[i].cardName + '</h5>'
-            + '</td><td>'
-            + '<h5>' + cardsBlocks[i].cardRating + '</h5>'
+            + '</td><td class="ratingNum">'
+            + '<h4>' + cardsBlocks[i].cardRating + '</h4>'
             + '</td></tr></tbody></table>';
         addText('cardInfo-' + i, txt);
         i++;
