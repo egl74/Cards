@@ -61,8 +61,15 @@
                 </div>
             </td>
         </tr>
+    </tbody>
+</table>
+<canvas id="templateCanvas" class="templateCanvas">
+    Обновите браузер. Необходимо, чтобы он поддерживал HTML5
+</canvas>
+<table class="mainTable">
+    <tbody>
         <tr>
-            <td colspan="2">
+            <td>
                 <br />
                 <div id="error-msgs"></div>
                 <input id="save-btn" type="button" value="Сохранить" class="save-button btn btn-primary" onclick="saveCard()" />
@@ -75,6 +82,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/cardsLogic/cardEditLogic.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/Scripts/cardsLogic/cardTemplatesLogic.js" type="text/javascript" charset="utf-8"></script>
 
 @if (Session["templateEditCard"] != null)
 {
@@ -93,6 +101,7 @@ else
 <script type="text/javascript">
 
     initCanvas();
+    initTemplCanvas();
 
     function preAddTextBlock(infoId) {
         var infoContent = $('#type-' + infoId).val();

@@ -1,84 +1,82 @@
-﻿// width, height, buffer
-// canvas, context
-// drag, dragRect
+﻿// widthTempl, heightTempl, bufferTempl
+// canvasTempl, contextTempl
+// dragTempl, dragRect
 // selectedTemplate
-function initCanvas() {
-    width = 2500;
-    height = 330;
-    buffer = document.createElement('canvas');
-    buffer.width = width;
-    buffer.height = height;
-    buffer.context = buffer.getContext('2d');
-    buffer.context.fillStyle = '#000000';
+function initTemplCanvas() {
+    widthTempl = 2500;
+    heightTempl = 330;
+    bufferTempl = document.createElement('canvas');
+    bufferTempl.width = widthTempl;
+    bufferTempl.height = heightTempl;
+    bufferTempl.context = bufferTempl.getContext('2d');
+    bufferTempl.context.fillStyle = '#000000';
     for (i = 0; i < 15; i++) {
         if (i % 2 === 0) {
-            buffer.context.strokeRect((i / 2 * 272) + 9, 9, 264, 152);
+            bufferTempl.context.strokeRect((i / 2 * 272) + 9, 9, 264, 152);
         } else {
-            buffer.context.strokeRect(((i - 1) / 2 * 272) + 9, 169, 264, 152);
+            bufferTempl.context.strokeRect(((i - 1) / 2 * 272) + 9, 169, 264, 152);
         }
     }
-    canvas = document.getElementById("templateCanvas");
-    context = canvas.getContext("2d");
-    canvas.width = Math.floor(window.innerWidth * .8);
-    canvas.height = height;
-    drag = false; // переменная истинная, когда зажата кнопка мыши
-    dragRect = new Shape(0, 0);
-    selectedTemplate = new Template(); // выбранный шаблон
-    canvas.onmousedown = mouseDown;
-    setInterval(draw, 1000 / 60);
+    canvasTempl = document.getElementById("templateCanvas");
+    contextTempl = canvasTempl.getContext("2d");
+    canvasTempl.width = 865;
+    canvasTempl.height = heightTempl;
+    dragTempl = false; // переменная истинная, когда зажата кнопка мыши
+    dragRect = new ShapeTempl(0);
+    selectedTemplate = new TemplateShape(); // выбранный шаблон
+    selectedTemplate.numberTemplate = 1;
+    selectedTemplate.changeTemplate();
+    canvasTempl.onmousedown = mouseDownTempLog;
+    setInterval(drawTempLog, 1000 / 60);
     initTemplates();
 }
 // Метод отрисовки
-function draw() {
+function drawTempLog() {
     dragRect.draw();
 }
 // Класс, задающий прямоугольник
-function Shape(topX) {
+function ShapeTempl(topX) {
     this.x = topX;
-    this.height = height; // высота
-    this.width = width; // ширина
+    this.height = heightTempl; // высота
+    this.width = widthTempl; // ширина
     this.offsetX = 0; // куда в области фигуры был произведен клик
     this.offsetY = 0;
     this.draw = function () // метод, рисующий прямоугольник
     {
-        //document.getElementById('coordx').value = this.x; /*!!!!!!!!*/
-        //document.getElementById('offsetx').value = this.offsetX; /*!!!!!!!!*/
-        //document.getElementById('offsety').value = this.offsetY; /*!!!!!!!!*/
         if (this.x > 0) {
             this.x = 0;
         }
         if (this.x < -1400) {
             this.x = -1400;
         }
-        context.clearRect(this.x, 0, this.width, this.height);
-        context.drawImage(buffer, this.x, 0, this.width, this.height);
+        contextTempl.clearRect(this.x, 0, this.width, this.height);
+        contextTempl.drawImage(bufferTempl, this.x, 0, this.width, this.height);
     }
 }
 // Метод срабатывающий на нажатие кнопки мыши
-function mouseDown(evt) {
+function mouseDownTempLog(evt) {
     selectedTemplate.coordMouseClick = dragRect.x;
-    var mouseX = evt.pageX - canvas.offsetLeft;
-    var mouseY = evt.pageY - canvas.offsetTop;
-    //document.getElementById('coordmx').value = mouseX; /*!!!!!!!!*/
+    var mouseX = evt.pageX - canvasTempl.offsetLeft;
+    var mouseY = evt.pageY - canvasTempl.offsetTop;
     if (mouseX < dragRect.x + dragRect.width && mouseX > dragRect.x) {
-        drag = true;
+        dragTempl = true;
         dragRect.offsetX = mouseX - dragRect.x;
         dragRect.offsetY = mouseY;
-        canvas.onmousemove = mouseMove;
-        canvas.onmouseup = mouseUp;
+        canvasTempl.onmousemove = mouseMoveTempLog;
+        canvasTempl.onmouseup = mouseUpTempLog;
     }
 }
 // Движение мыши
-function mouseMove(evt) {
-    var mouseX = evt.pageX - canvas.offsetLeft;
-    if (drag) {
+function mouseMoveTempLog(evt) {
+    var mouseX = evt.pageX - canvasTempl.offsetLeft;
+    if (dragTempl) {
         // Изменение координат фигуры
         dragRect.x = mouseX - dragRect.offsetX;
     }
 }
 // Отпускаем кнопку мыши
-function mouseUp(evt) {
-    drag = false;
+function mouseUpTempLog(evt) {
+    dragTempl = false;
     if (selectedTemplate.coordMouseClick === dragRect.x) {
         selectedTemplate.changeTemplate();
     }
@@ -98,25 +96,25 @@ function drawTemplate(src, x, y) {
     var pic = new Image();
     pic.src = src;
     pic.onload = function () {
-        buffer.context.drawImage(pic, x, y, 262, 150);
+        bufferTempl.context.drawImage(pic, x, y, 262, 150);
     }
 }
 // Класс, задающий выбранный шаблон
-function Template() {
+function TemplateShape() {
     this.numberTemplate = 0;
     this.coordMouseClick = 0;
     this.offsetX = 0;
     this.offsetY = 0;
     this.changeTemplate = function () {
         if (this.numberTemplate) {
-            buffer.context.fillStyle = '#000000';
+            bufferTempl.context.fillStyle = '#000000';
             if (this.numberTemplate % 2 != 0) {
-                buffer.context.clearRect(((this.numberTemplate - 1) / 2 * 272) + 6, 6, 270, 158);
-                buffer.context.strokeRect(((this.numberTemplate - 1) / 2 * 272) + 9, 9, 264, 152);
+                bufferTempl.context.clearRect(((this.numberTemplate - 1) / 2 * 272) + 6, 6, 270, 158);
+                bufferTempl.context.strokeRect(((this.numberTemplate - 1) / 2 * 272) + 9, 9, 264, 152);
                 drawTemplate('/Content/Images/Templates/' + this.numberTemplate + '.png', ((this.numberTemplate - 1) / 2 * 272) + 10, 10);
             } else {
-                buffer.context.clearRect(((this.numberTemplate - 2) / 2 * 272) + 6, 166, 270, 158);
-                buffer.context.strokeRect(((this.numberTemplate - 2) / 2 * 272) + 9, 169, 264, 152);
+                bufferTempl.context.clearRect(((this.numberTemplate - 2) / 2 * 272) + 6, 166, 270, 158);
+                bufferTempl.context.strokeRect(((this.numberTemplate - 2) / 2 * 272) + 9, 169, 264, 152);
                 drawTemplate('/Content/Images/Templates/' + this.numberTemplate + '.png', ((this.numberTemplate - 2) / 2 * 272) + 10, 170);
             }
         }
@@ -138,14 +136,15 @@ function Template() {
                 }
             }
         }
-        //document.getElementById('template').value = this.numberTemplate; /*!!!!!!!!*/
-        buffer.context.fillStyle = '#FF0000';
+        bufferTempl.context.fillStyle = '#FF0000';
         if (this.numberTemplate % 2 != 0) {
-            buffer.context.fillRect(((this.numberTemplate - 1) / 2 * 272) + 6, 6, 270, 158);
+            bufferTempl.context.fillRect(((this.numberTemplate - 1) / 2 * 272) + 6, 6, 270, 158);
             drawTemplate('/Content/Images/Templates/' + this.numberTemplate + '.png', ((this.numberTemplate - 1) / 2 * 272) + 10, 10);
         } else {
-            buffer.context.fillRect(((this.numberTemplate - 2) / 2 * 272) + 6, 166, 270, 158);
+            bufferTempl.context.fillRect(((this.numberTemplate - 2) / 2 * 272) + 6, 166, 270, 158);
             drawTemplate('/Content/Images/Templates/' + this.numberTemplate + '.png', ((this.numberTemplate - 2) / 2 * 272) + 10, 170);
         }
+        template = this.numberTemplate;
+        drawTemplateEditLog();
     }
 }

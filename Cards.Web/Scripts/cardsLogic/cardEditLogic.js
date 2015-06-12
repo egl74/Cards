@@ -1,6 +1,6 @@
 ﻿// template
 // width, height
-// canvas, context
+// canvas, context, drag
 // textBlocks
 // clickedShape
 function initCanvas() {
@@ -8,7 +8,7 @@ function initCanvas() {
     height = 340;
     document.getElementById("canv1").width = width;
     document.getElementById("canv1").height = height;
-    drawTemplate();
+    drawTemplateEditLog();
     canvas = document.getElementById("canv2");
     context = canvas.getContext("2d");
     canvas.width = width;
@@ -67,7 +67,7 @@ function mouseUp(evt) {
 }
 /////////////////////////////////////////////////////
 // Отрисовка конкретного изображения-шаблона
-function drawTemplate() {
+function drawTemplateEditLog() {
     var pic = new Image();
     pic.src = '/Content/Images/Templates/' + template + '.png';
     pic.onload = function () {
