@@ -117,88 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="AddNewInfo" xml:space="preserve">
-    <value>Add new info</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Field" xml:space="preserve">
-    <value>Field</value>
-  </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Hello</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="LoginExternal" xml:space="preserve">
-    <value>Use another service to log in</value>
-  </data>
-  <data name="LoginLocal" xml:space="preserve">
-    <value>Use a local account to log in</value>
-  </data>
-  <data name="LogOff" xml:space="preserve">
-    <value>Log off</value>
-  </data>
-  <data name="ManageCards" xml:space="preserve">
-    <value>Manage cards</value>
-  </data>
-  <data name="NoAccess" xml:space="preserve">
-    <value>You have no access to the page you requested.</value>
-  </data>
-  <data name="ProfileIsEmpty" xml:space="preserve">
-    <value>Profile is empty</value>
-  </data>
-  <data name="Rating" xml:space="preserve">
-    <value>Cards rating</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="RegisterAsANew" xml:space="preserve">
-    <value>Register as a new user</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="SelectType" xml:space="preserve">
-    <value>Select Type</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="Author" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="Admin" xml:space="preserve">
-    <value>Admin</value>
-  </data>
-  <data name="IsBlocked" xml:space="preserve">
-    <value>Blocked</value>
-  </data>
-  <data name="SaveSuccessful" xml:space="preserve">
-    <value>Successfully saved!</value>
-  </data>
-  <data name="AccountLockedOut" xml:space="preserve">
-    <value>This account has been locked out, please try again later.</value>
-  </data>
-  <data name="LockedOut" xml:space="preserve">
-    <value>Locked out</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>

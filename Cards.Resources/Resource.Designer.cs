@@ -70,6 +70,15 @@ namespace Cards.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This account has been locked out, please try again later..
+        /// </summary>
+        public static string AccountLockedOut {
+            get {
+                return ResourceManager.GetString("AccountLockedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new info.
         /// </summary>
         public static string AddNewInfo {
@@ -165,6 +174,15 @@ namespace Cards.Resources {
         public static string IsBlocked {
             get {
                 return ResourceManager.GetString("IsBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locked out.
+        /// </summary>
+        public static string LockedOut {
+            get {
+                return ResourceManager.GetString("LockedOut", resourceCulture);
             }
         }
         

@@ -26,7 +26,7 @@
                 <label><input id="is-admin" type="checkbox" value=@ViewBag.IsAdmin>@Resource.Admin</label>
             </div>
             <div class="checkbox">
-                <label><input id="is-blocked" type="checkbox" value=@ViewBag.IsBlocked>@Resource.IsBlocked</label>
+                <label><input id="lockout-enabled" type="checkbox" value=@ViewBag.LockoutEnabled>@Resource.IsBlocked</label>
             </div>
             <button class="btn btn-primary" id="save-status-btn">@Resource.Save</button>
         </div>
@@ -86,16 +86,16 @@
 
             $(function () {
                 var isAdmin = '@ViewBag.IsAdmin' == 'True' ? true : false;
-                var isBlocked = '@ViewBag.IsBlocked' == 'True' ? true : false;
+                var lockoutEnabled = '@ViewBag.LockoutEnabled' == 'True' ? true : false;
                 $('#is-admin').prop('checked', isAdmin);
-                $('#is-blocked').prop('checked', isBlocked);
+                $('#lockout-enabled').prop('checked', lockoutEnabled);
             });
 
 
             $('body').on('click', '#save-status-btn', function () {
                 var data = {
                     IsAdmin: $('#is-admin').prop('checked'),
-                    IsBlocked: $('#is-blocked').prop('checked'),
+                    LockoutEnabled: $('#lockout-enabled').prop('checked'),
                     Id: '@Model.UserId'
                 };
                 $.ajax({

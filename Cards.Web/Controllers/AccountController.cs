@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Security;
+using Cards.Resources;
 using Cards.Web.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -37,13 +41,13 @@ namespace Cards.Web.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return View("Lockout", new List<string>{Resource.LockedOut, Resource.AccountLockedOut});
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
@@ -113,7 +117,7 @@ namespace Cards.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email, IsAdmin = false, IsBlocked = false};
+                var user = new User { UserName = model.Email, Email = model.Email, IsAdmin = false, LockoutEnabled = false};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -164,7 +168,7 @@ namespace Cards.Web.Controllers
             var infos = Context.Infoes.Where(i => i.UserId == userId);
             var currentUserId = User.Identity.GetUserId();
             ViewBag.IsAdmin = Context.Users.Single(u => u.Id == userId).IsAdmin;
-            ViewBag.IsBlocked = Context.Users.Single(u => u.Id == userId).IsBlocked;
+            ViewBag.LockoutEnabled = Context.Users.Single(u => u.Id == userId).LockoutEnabled;
             ViewBag.CanManage = Context.Users.Single(u => u.Id == currentUserId).IsAdmin;
             return View(new ProfileViewModel{Infos = infos, UserId = userId});
         }
@@ -176,8 +180,10 @@ namespace Cards.Web.Controllers
             {
                 var user = Context.Users.Single(u => u.Id == userdata.Id);
                 user.IsAdmin = userdata.IsAdmin;
-                user.IsBlocked = userdata.IsBlocked;
+                user.LockoutEnabled = userdata.LockoutEnabled;
+                user.LockoutEndDateUtc = DateTime.UtcNow + new TimeSpan(1, 0, 0);
                 Context.SaveChanges();
+                FormsAuthentication.SetAuthCookie(user.Email, false);
                 return Json(true);
             }
             catch (Exception)

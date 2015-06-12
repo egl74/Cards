@@ -2,6 +2,7 @@
 @model LoginViewModel
 @{
     ViewBag.Title = Resource.LogIn;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
@@ -66,6 +67,11 @@
     </a>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script src="/Scripts/jquery-1.10.2.js"></script>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $('.checkbox').prop('checked', false);
+        $('.checkbox').hide();
+    });
+</script>

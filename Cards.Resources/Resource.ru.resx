@@ -190,9 +190,15 @@
     <value>Администратор</value>
   </data>
   <data name="IsBlocked" xml:space="preserve">
-    <value>Заблоирован</value>
+    <value>Заблокирован</value>
   </data>
   <data name="SaveSuccessful" xml:space="preserve">
     <value>Сохранение прошло успешно!</value>
+  </data>
+  <data name="AccountLockedOut" xml:space="preserve">
+    <value>Аккаунт заблокирован, попробуйте позже.</value>
+  </data>
+  <data name="LockedOut" xml:space="preserve">
+    <value>Заблокирован</value>
   </data>
 </root>

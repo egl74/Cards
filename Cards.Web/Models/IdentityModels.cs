@@ -17,11 +17,9 @@ namespace Cards.Web.Models
         }
 
         public bool IsAdmin { get; set; }
-        public bool IsBlocked { get; set; }
 
         public virtual ICollection<Card> Cards { get; set; }
         public virtual ICollection<Info> Infoes { get; set; }
-
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

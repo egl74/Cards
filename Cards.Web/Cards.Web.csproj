@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201506061832262_Cascade.Designer.cs">
       <DependentUpon>201506061832262_Cascade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506120655387_LockedOut.cs" />
+    <Compile Include="Migrations\201506120655387_LockedOut.Designer.cs">
+      <DependentUpon>201506120655387_LockedOut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -192,6 +196,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-Cards.Web-20150514054040.mdf" />
+    <Content Include="App_Data\aspnet-Cards.Web-20150514054040_log.ldf">
+      <DependentUpon>aspnet-Cards.Web-20150514054040.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cardEditStyle.css" />
@@ -282,9 +290,7 @@
     <Content Include="Views\Card\EditCard.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -300,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506061832262_Cascade.resx">
       <DependentUpon>201506061832262_Cascade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506120655387_LockedOut.resx">
+      <DependentUpon>201506120655387_LockedOut.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
