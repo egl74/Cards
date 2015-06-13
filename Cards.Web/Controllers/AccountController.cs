@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -193,19 +194,24 @@ namespace Cards.Web.Controllers
         }
 
         [Authorize]
+        [OnDeserializing]
         public async Task<JsonResult> AddInfo(Info item)
         {
             try
             {
-                //if
-                item.UserId = User.Identity.GetUserId();
-                var added = Context.Infoes.Add(item);
-                await Context.SaveChangesAsync();
-                return Json(added);
+                var count = Context.Infoes.Count(i => i.Type == item.Type && i.UserId == item.UserId);
+                var limit = InfoRestrictions.Values[(FieldType) item.Type].Value;
+                if (limit == -1 || count < limit)
+                {
+                    var added = Context.Infoes.Add(item);
+                    await Context.SaveChangesAsync();
+                    return Json(new {Message = Resource.AddInfoSuccess, Id = added.Id});
+                }
+                throw new Exception(Resource.InfoLimitReached);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return null;
+                return Json(e.Message);
             }
         }
 

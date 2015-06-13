@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Cards.Web.Helpers
+﻿namespace Cards.Web.Helpers
 {
     public enum FieldType
     {

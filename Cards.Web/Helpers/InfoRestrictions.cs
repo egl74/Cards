@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Cards.Web.Helpers
 {
@@ -9,7 +6,7 @@ namespace Cards.Web.Helpers
     {
         public static readonly Dictionary<FieldType, int?> Values = new Dictionary<FieldType, int?>
         {
-            {FieldType.Address, 10},
+            {FieldType.Phone, 10},
             {FieldType.Address, 15},
             {FieldType.Email, 30},
             {FieldType.Fax, 2},

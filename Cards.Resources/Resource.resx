@@ -213,4 +213,10 @@
   <data name="EditCard" xml:space="preserve">
     <value>Card editing</value>
   </data>
+  <data name="AddInfoSuccess" xml:space="preserve">
+    <value>Info added successfully!</value>
+  </data>
+  <data name="InfoLimitReached" xml:space="preserve">
+    <value>Limit reached. Cannot add more info of this type.</value>
+  </data>
 </root>

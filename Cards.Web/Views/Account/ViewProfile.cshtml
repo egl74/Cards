@@ -152,7 +152,7 @@
 
                 $('#savenew-btn').click(function () {
                     var data = {
-                        Id: '@Model.UserId',
+                        UserId: '@Model.UserId',
                         Content: $('#newcontent').val(),
                         Comment: $('#newcomment').val(),
                         Type: $('#Type').val()
@@ -165,11 +165,9 @@
                         success: function (response) {
                             if (response.Id != null) {
                                 var id = response.Id;
-                                var newcontent = response.Content;
-                                var newcomment = response.Comment == null ? "" : response.Comment;
                                 var type = $('#Type option:selected').text();
                                 var value = $('#Type option:selected').val();
-                                var tr = '<tr id="info-' + id + '"><td id="content-' + id + '" data-toggle="tooltip" title=' + newcomment + '>' + newcontent + '</td>' +
+                                var tr = '<tr id="info-' + id + '"><td id="content-' + id + '" data-toggle="tooltip" title=' + data.Comment + '>' + data.Content + '</td>' +
                                     '<td id="type-' + id + '" value=' + value + '>' + type + '</td>' +
                                     '<td id="action-' + id + '"><div class=" btn-group" role="group">' +
                                     '<button class="btn btn-warning edt-btn" id="edt-btn-' + id + '">@Resource.Edit</button>' +
@@ -178,12 +176,13 @@
                                 $('#table').show();
                                 $('#empty').remove();
                                 CreateAddButton();
+                                alert(response.Message);
                             } else {
-                                alert('');
+                                alert(response);
                             }
                         },
                         error: function () {
-                            alert('');
+                            alert('error');
                         }
                     });
                 });

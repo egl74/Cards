@@ -79,6 +79,15 @@ namespace Cards.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info added successfully!.
+        /// </summary>
+        public static string AddInfoSuccess {
+            get {
+                return ResourceManager.GetString("AddInfoSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new info.
         /// </summary>
         public static string AddNewInfo {
@@ -192,6 +201,15 @@ namespace Cards.Resources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Limit reached. Cannot add more info of this type..
+        /// </summary>
+        public static string InfoLimitReached {
+            get {
+                return ResourceManager.GetString("InfoLimitReached", resourceCulture);
             }
         }
         
