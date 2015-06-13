@@ -144,7 +144,9 @@
                 CardId: cardId
             },
             success: function (response) {
-                //document.location.replace('/Card/EditCard');
+                if(response) {
+                    document.location.replace('/Card/EditCard');
+                }
             }
         });
     }

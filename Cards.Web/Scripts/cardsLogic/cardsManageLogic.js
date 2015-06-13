@@ -82,7 +82,7 @@ function initMainTable() {
             + '<img name="piccard-' + i + '" id="piccard-' + i + '" class="piccards" src="" width="355" height="200" border="0" />'
             + '</div>'
             + '</td><td class="card-btns">'
-            + '<button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button>'
+            + '<button class="btn btn-primary" onclick="toEditCard(' + cardsBlocks[i].cardId + ')"><i class="glyphicon glyphicon-pencil"></i></button>'
             + '<br /><br />'
             + '<button class="btn btn-danger" onclick="showDelConfirmMsg(' + cardsBlocks[i].cardId + ');scroll(0,0)"><i class="glyphicon glyphicon-remove"></i></button>'
             + '</td></tr>';

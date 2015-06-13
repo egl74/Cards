@@ -60,3 +60,9 @@ h2 {
     margin: 20px auto 0 auto;
     display: block;
 }
+
+.error-msgs {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}

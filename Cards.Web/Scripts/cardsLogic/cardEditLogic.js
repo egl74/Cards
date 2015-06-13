@@ -1,4 +1,4 @@
-﻿// template
+﻿// template, newCardId
 // width, height
 // canvas, context, drag
 // textBlocks
@@ -75,19 +75,19 @@ function drawTemplateEditLog() {
     }
 }
 // Класс, задающий один текстовый блок
-function Shape(infoId,infoType,infoContent) {
+function Shape(infoId,infoType,infoContent, posX, posY) {
     this.infoId = infoId;
     this.infoType = infoType;
     this.infoContent = infoContent;
     this.buffer = document.createElement('canvas');
-    this.x = 20;
-    this.y = 20;
+    this.x = posX;
+    this.y = posY;
     this.offsetX = 0;
     this.offsetY = 0;
 }
 //добавление нового текстового блока на редактируемую визитку
-function addTextBlock(infoId,infoType,infoContent) {
-    textBlocks.push(new Shape(infoId, infoType, infoContent));
+function addTextBlock(infoId, infoType, infoContent, posX, posY) {
+    textBlocks.push(new Shape(infoId, infoType, infoContent, posX, posY));
     var item = textBlocks.length - 1;
     textBlocks[item].buffer.width = 525;
     textBlocks[item].buffer.context = textBlocks[item].buffer.getContext('2d');
@@ -131,7 +131,7 @@ function delTextBlock(infoId) {
     var length = textBlocks.length;
     var addbtn = '';
     for (i = 0; i < length; i++) {
-        if (textBlocks[i].infoId === infoId) {
+        if (textBlocks[i].infoId == infoId) {
             addbtn = '<button class="btn btn-success btn-xs" id="add-btn" onclick="preAddTextBlock(' + infoId + ')"><i class="glyphicon glyphicon-plus"></i></button>';
             addText('action-' + infoId, addbtn);
             textBlocks.splice(i,1);

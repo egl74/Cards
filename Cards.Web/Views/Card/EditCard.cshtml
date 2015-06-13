@@ -7,6 +7,8 @@
 
 <h2>Редактирование визитки</h2>
 
+<div id="error-msgs" class="error-msgs"></div>
+
 <table class="mainTable">
     <tbody>
         <tr>
@@ -70,8 +72,6 @@
     <tbody>
         <tr>
             <td>
-                <br />
-                <div id="error-msgs"></div>
                 <input id="save-btn" type="button" value="Сохранить" class="save-button btn btn-primary" onclick="saveCard()" />
             </td>
         </tr>
@@ -87,14 +87,17 @@
 @if (Session["templateEditCard"] != null)
 {
     <script type="text/javascript">
-        template = Session["templateEditCard"];
+        template = @Session["templateEditCard"];
+        newCardId = @Session["idEditCard"];
     </script>
     Session["templateEditCard"] = null;
+    Session["idEditCard"] = null;
 }
 else
 {
     <script type="text/javascript">
         template = 1;
+        newCardId = 0;
     </script>
 }
 
@@ -104,14 +107,18 @@ else
     initTemplCanvas();
 
     function preAddTextBlock(infoId) {
-        var infoContent = $('#type-' + infoId).val();
-        var infoType = $('#content-' + infoId).val();
-        addTextBlock(infoId, infoContent, infoType);
+        var infoType = $('#type-' + infoId).val();
+        var infoContent = $('#content-' + infoId).val();
+        addTextBlock(infoId, infoType, infoContent, 20, 20);
         checkAllButtons();
     };
 
     function addText(tag, txt) {
         document.getElementById(tag).innerHTML = txt;
+    }
+
+    function setCardName(name) {
+        document.getElementById("cardnameinput").value = name;
     }
 
     function saveCard() {
@@ -128,6 +135,7 @@ else
         msg += '</div>';
         if (err === 1) {
             addText('error-msgs', msg);
+            scroll(0, 0);
         } else {
             addText('error-msgs', '');
             var length = textBlocks.length;
@@ -139,7 +147,7 @@ else
                 url: '/Card/SaveInfo',
                 dataType: 'json',
                 data: {
-                    CardId: 0,
+                    CardId: newCardId,
                     CardTemplate: template,
                     CardName: $('#cardnameinput').val(),
                     CardInfoes: cardInfo,
@@ -150,7 +158,7 @@ else
                         document.location.replace("/Card/ManageCards");
                     } else {
                         var msg = '<div class="alert alert-danger" role="alert">';
-                        msg += '<i class="glyphicon glyphicon-exclamation-sign"></i> Произошла ошибка при сохранении визитки. Проверьте название';
+                        msg += '<i class="glyphicon glyphicon-exclamation-sign"></i> Произошла ошибка при сохранении визитки';
                         msg += '</div>';
                         addText('error-msgs', msg);
                     }
@@ -158,4 +166,37 @@ else
             });
         }
     }
+
+    function getTypeInfo(num) {
+        var types = ['Phone', 'Address', 'Email', 'Fax', 'Skype', 'Url', 'Name', 'Position', 'Job'];
+        return types[num];
+    }
+
+    function setInfoes(data) {
+        var i = 0, j = 0, tmp = ['', '', '', '', ''];
+        while (i < data.length) {
+            while (data[i] != '$') {
+                while (data[i] != '|') {
+                    tmp[j] += data[i];
+                    i++;
+                }
+                j++;
+                i++;
+            }
+            j = 0;
+            i++;
+            addTextBlock(tmp[0], getTypeInfo(tmp[1]), tmp[2], tmp[3], tmp[4]);
+            tmp = ['', '', '', '', ''];
+        }
+        checkAllButtons();
+    }
 </script>
+@if (Session["infoesEditCard"] != null)
+{
+    <script type="text/javascript">
+        setCardName("@Session["nameEditCard"]");
+        setInfoes("@Session["infoesEditCard"]");
+    </script>
+    Session["infoesEditCard"] = null;
+    Session["nameEditCard"] = null;
+}

@@ -22,6 +22,16 @@ namespace Cards.Web.Controllers
             try
             {
                 var cardId = Convert.ToInt32(Request.Params["CardId"]);
+                Card tmp = Context.Cards.Single(i => i.Id == cardId);
+                Session["templateEditCard"] = tmp.Template;
+                Session["nameEditCard"] = tmp.Name;
+                Session["idEditCard"] = cardId;
+                var cardInf = "";
+                foreach (var ci in tmp.CardInfoes)
+                {
+                    cardInf += ci.Info.Id + "|" + ci.Info.Type + "|" + ci.Info.Content + "|" + (ci.PositionX + 5) + "|" + (ci.PositionY + 5) + "|$";
+                }
+                Session["infoesEditCard"] = cardInf;
                 return Json(true);
             }
             catch (Exception)

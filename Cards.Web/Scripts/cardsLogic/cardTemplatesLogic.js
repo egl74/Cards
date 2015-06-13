@@ -24,7 +24,7 @@ function initTemplCanvas() {
     dragTempl = false; // переменная истинная, когда зажата кнопка мыши
     dragRect = new ShapeTempl(0);
     selectedTemplate = new TemplateShape(); // выбранный шаблон
-    selectedTemplate.numberTemplate = 1;
+    selectedTemplate.numberTemplate = template;
     selectedTemplate.changeTemplate();
     canvasTempl.onmousedown = mouseDownTempLog;
     setInterval(drawTempLog, 1000 / 60);
