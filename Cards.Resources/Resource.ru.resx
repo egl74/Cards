@@ -205,7 +205,7 @@
     <value>Визитка будет удалена безвозвратно. Подтверждаете удаление?</value>
   </data>
   <data name="NewCardSaveSuccess" xml:space="preserve">
-    <value>Новая визитка успешно сохранена</value>
+    <value>Визитка успешно сохранена</value>
   </data>
   <data name="CreateNewCard" xml:space="preserve">
     <value>Создать новую визитку</value>
@@ -221,5 +221,8 @@
   </data>
   <data name="InfoLimitReached" xml:space="preserve">
     <value>Невозможно добавить информацию данного типа, так как достигнут предел.</value>
+  </data>
+  <data name="SeeCard" xml:space="preserve">
+    <value>Просмотр визитки</value>
   </data>
 </root>

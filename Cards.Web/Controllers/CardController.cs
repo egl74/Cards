@@ -17,6 +17,11 @@ namespace Cards.Web.Controllers
             return View(model);
         }
 
+        public ActionResult ViewCard()
+        {
+            return View();
+        }
+
         public JsonResult PreEditCard()
         {
             try

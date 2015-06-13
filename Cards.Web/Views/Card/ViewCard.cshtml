@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = Resource.SeeCard;
+}
+
+<div class="mainDiv" id="mainDiv"></div>
+
+<style type="text/css">
+</style>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/cardsLogic/cardViewLogic.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    function addText(tag, txt) {
+        document.getElementById(tag).innerHTML = txt;
+    }
+
+    jQuery(document).ready(function($) {
+        card = "@Request.Params["card"]";
+        if(card == "") {
+            document.location.replace("/");
+        } else {
+            alert("pzds");
+        }
+    });
+
+</script>

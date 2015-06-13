@@ -205,7 +205,7 @@
     <value>Card will be removed permanently. Confirm deletion?</value>
   </data>
   <data name="NewCardSaveSuccess" xml:space="preserve">
-    <value>A new card has been saved successfully</value>
+    <value>Card has been saved successfully</value>
   </data>
   <data name="CreateNewCard" xml:space="preserve">
     <value>Create a new card</value>
@@ -221,5 +221,8 @@
   </data>
   <data name="InfoLimitReached" xml:space="preserve">
     <value>Limit reached. Cannot add more info of this type.</value>
+  </data>
+  <data name="SeeCard" xml:space="preserve">
+    <value>View Card</value>
   </data>
 </root>
