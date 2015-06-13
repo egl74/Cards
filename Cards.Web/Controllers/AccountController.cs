@@ -194,13 +194,12 @@ namespace Cards.Web.Controllers
         }
 
         [Authorize]
-        [OnDeserializing]
         public async Task<JsonResult> AddInfo(Info item)
         {
             try
             {
                 var count = Context.Infoes.Count(i => i.Type == item.Type && i.UserId == item.UserId);
-                var limit = InfoRestrictions.Values[(FieldType) item.Type].Value;
+                var limit = InfoRestrictions.Values[(FieldType) item.Type] != null ? InfoRestrictions.Values[(FieldType) item.Type].Value : -1;
                 if (limit == -1 || count < limit)
                 {
                     var added = Context.Infoes.Add(item);
@@ -220,18 +219,26 @@ namespace Cards.Web.Controllers
         {
             try
             {
-                var currentUser = User.Identity.GetUserId();
-                var edit = Context.Infoes.FirstOrDefault(i => i.Id == item.Id && i.UserId == currentUser);
-                if (edit == null) throw new Exception();
-                edit.Content = item.Content;
-                edit.Comment = item.Comment;
-                edit.Type = item.Type;
-                await Context.SaveChangesAsync();
-                return Json(edit);
+                var userId = Context.Infoes.FirstOrDefault(i => i.Id == item.Id) != null ? Context.Infoes.FirstOrDefault(i => i.Id == item.Id).UserId : null;
+                var count = Context.Infoes.Count(i => i.Type == item.Type && i.UserId == userId);
+                var limit = InfoRestrictions.Values[(FieldType)item.Type] != null ? InfoRestrictions.Values[(FieldType)item.Type].Value : -1;
+                if (limit == -1 || count <= limit)
+                {
+                    var edit = Context.Infoes.SingleOrDefault(i => i.Id == item.Id);
+                    if (edit == null) throw new Exception();
+                    if (count == limit && edit.Type != item.Type)
+                        throw new Exception(Resource.InfoLimitReached);
+                    edit.Content = item.Content;
+                    edit.Comment = item.Comment;
+                    edit.Type = item.Type;
+                    await Context.SaveChangesAsync();
+                    return Json(new {Message = Resource.EditInfoSuccess});
+                }
+                throw new Exception(Resource.InfoLimitReached);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return null;
+                return Json(e.Message);
             }
         }
 

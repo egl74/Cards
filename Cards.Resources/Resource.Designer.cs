@@ -178,6 +178,15 @@ namespace Cards.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info edited successfully!.
+        /// </summary>
+        public static string EditInfoSuccess {
+            get {
+                return ResourceManager.GetString("EditInfoSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field.
         /// </summary>
         public static string Field {

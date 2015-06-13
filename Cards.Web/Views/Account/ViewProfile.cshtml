@@ -1,4 +1,5 @@
-﻿@using Cards.Web.Helpers
+﻿@using Microsoft.Ajax.Utilities
+@using FieldType = Cards.Web.Helpers.FieldType
 @model Cards.Web.Models.ProfileViewModel
 
 @{
@@ -47,7 +48,14 @@
                     foreach (var item in Model.Infos)
                     {
                         <tr id="info-@item.Id">
-                            <td id="content-@item.Id" data-toggle="tooltip" title=@item.Comment>@item.Content</td>
+                            @if (item.Comment != null)
+                            {
+                                <td id="content-@item.Id" data-toggle="tooltip" title=@item.Comment>@item.Content</td>
+                            }
+                            else
+                            {
+                                <td id="content-@item.Id" data-toggle="tooltip" title=''>@item.Content</td>
+                            }
                             <td value="@item.Type" id="type-@item.Id">@Enum.GetName(typeof(FieldType), item.Type)</td>
                             <td id="action-@item.Id">
                                 <div class=" btn-group" role="group">
@@ -245,8 +253,8 @@
                     foreach (var item in Enum.GetValues(typeof (FieldType)))
                     {
                         @:var option = ('<option value="@j">@item</option>');
-                                                                                            @:selector = selector.concat(option);
-                                                                                            j++;
+                        @:selector = selector.concat(option);
+                        j++;
                     }
                 }
                 selector.concat('</select>');
@@ -259,7 +267,7 @@
 
                 var saveBtn = $('<button type="button" class="btn btn-primary" id="save-' + rowId + '">@Resource.Save</button>').appendTo(actionTd);
 
-                saveBtn.click(function () {
+                saveBtn.click(function() {
 
                     var data = {
                         Id: rowId,
@@ -273,9 +281,16 @@
                         url: '/Account/EditInfo',
                         dataType: 'json',
                         data: data,
+                        success: function(response) {
+                            if (response.Message != null) {
+                                data.TypeText = $('#editType-' + rowId).children(':selected').text();
+                                tr.html(createTrEditRow(data));
+                                alert(response.Message);
+                            } else {
+                                alert(response);
+                            }
+                        }
                     });
-                    data.TypeText = $('#editType-' + rowId).children(':selected').text();
-                    tr.html(createTrEditRow(data));
                 });
 
                 var cancelBtn = $('<button type="button" class="btn btn-danger" id="cncl-' + rowId + '">@Resource.Cancel</button>').appendTo(actionTd);
@@ -285,8 +300,9 @@
             };
             function createTrEditRow(obj) {
                 var result = '';
+                var comment = obj.Comment != null ? obj.Comment : '';
 
-                result += '<td id="content-' + obj.Id + '" data-toggle="tooltip" title=' + obj.Comment + '>' + obj.Content + '</td>';
+                result += '<td id="content-' + obj.Id + '" data-toggle="tooltip" title=' + comment + '>' + obj.Content + '</td>';
                 result += '<td value=' + obj.Type + ' id="type-' + obj.Id + '">' + obj.TypeText + '</td>';
                 result += '<td id="action-' + obj.Id + '"><div class=" btn-group" role="group"><button class="btn btn-warning edt-btn" id="edt-btn-' + obj.Id + '">@Resource.Edit</button>' +
                     '<button class="btn btn-danger del-btn" id="del-btn-' + obj.Id + '">@Resource.Delete</button></div></td>';

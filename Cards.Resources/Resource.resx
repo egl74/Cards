@@ -216,6 +216,9 @@
   <data name="AddInfoSuccess" xml:space="preserve">
     <value>Info added successfully!</value>
   </data>
+  <data name="EditInfoSuccess" xml:space="preserve">
+    <value>Info edited successfully!</value>
+  </data>
   <data name="InfoLimitReached" xml:space="preserve">
     <value>Limit reached. Cannot add more info of this type.</value>
   </data>
