@@ -60,6 +60,11 @@ namespace Cards.Web.Controllers
                 String[] buf = Request.Params["CardInfoes"].Split('|');
                 Card card = cardId == 0 ? Context.Cards.Add(new Card {Template = cardTemplate, Name = cardName, UserId = User.Identity.GetUserId()}) : Context.Cards.Single(c => c.Id == cardId);
                 card.CardInfoes.Clear();
+                var cis = Context.CardInfoes.Where(ci => ci.CardId == cardId);
+                foreach (var item in cis)
+                {
+                    Context.CardInfoes.Remove(item);
+                }
                 for (int i = 0; i < cardInfoesLength; i++)
                 {
                     var infoId = Convert.ToInt32(buf[0 + 3 * i]);

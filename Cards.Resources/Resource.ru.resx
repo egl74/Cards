@@ -210,4 +210,7 @@
   <data name="CreateNewCard" xml:space="preserve">
     <value>Создать новую визитку</value>
   </data>
+  <data name="EditCard" xml:space="preserve">
+    <value>Редактирование визитки</value>
+  </data>
 </root>
