@@ -5,13 +5,13 @@ function initCard() {
 }
 // Метод прорисовки главной таблицы
 function initMainTable() {
-    var tbl = '<table class="mainTable" border="1"><tbody><tr><td>';
-    tbl += '<div class="viewheader" id="viewheader">'
-        + '</div>'
-        + '</td></tr><tr><td>'
+    var tbl = '<table class="mainTable"><tbody><tr><td class="tdHeader">';
+    tbl += '<div class="viewHeader" id="viewHeader">'
+        + '<div>'
+        + '</td></tr><tr><td style="height: 10px;"></td></tr><tr><td>'
         + '<img name="piccard" id="piccard" class="piccards" src="" width="525" height="300" border="0" />'
-        + '</td></tr><tr><td>'
-        + '<div class="viewfooter" id="viewfooter">'
+        + '</td></tr><tr><td style="height: 10px;"></td></tr><tr><td class="tdFooter">'
+        + '<div class="viewFooter" id="viewFooter">'
         + '</div>'
         + '</td></tr></tbody></table>';
     addText('mainDiv', tbl);
@@ -77,10 +77,28 @@ function parseData(data) {
             tmp = ['', '', '', ''];
         }
         document.getElementById('piccard').valueOf().src = buffer.toDataURL("image/png");
+        initHeader();
+        initFooter();
     }
 }
 // Метод для получения типа контента на визитке
 function getTypeInfo(num) {
     var types = ['Phone', 'Address', 'Email', 'Fax', 'Skype', 'Url', 'Name', 'Position', 'Job'];
     return types[num];
+}
+// Инициализация шапки
+function initHeader() {
+    var txt = "<h4>" + name + "</h4>";
+    addText('viewHeader', txt);
+}
+// Инициализация нижнего колонтитула
+function initFooter() {
+    var txt = '<table style="width: 100%;"><tbody><tr><td colspan="3" style="height: 10px;"></td></tr><tr><td>'
+        + '<button type="submit" class="btn btn-default btn-lg" onclick=""><span class="glyphicon glyphicon-link"></span></button>'
+        + '</td><td>'
+        + '<button type="submit" class="btn btn-default btn-lg" onclick=""><span class="glyphicon glyphicon-qrcode"></span></button>'
+        + '</td><td>'
+        + '<button type="submit" class="btn btn-default btn-lg" onclick=""><span class="glyphicon glyphicon-file"></span></button>'
+        + '</td></tr><tr><td colspan="3" style="height: 10px;"></td></tr></tbody></table>';
+    addText('viewFooter', txt);
 }
