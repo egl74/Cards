@@ -81,9 +81,9 @@ function initMainTable() {
     while (i < cardsCount) {
         tbl += '<tr>'
             + '<td>'
-            + '<div class="canvases">'
+            + '<div class="canvases"><a href="/Card/ViewCard?card=' + cardsBlocks[i].cardId + '" >'
             + '<img name="piccard-' + i + '" id="piccard-' + i + '" class="piccards" src="" width="355" height="200" border="0" />'
-            + '</div>'
+            + '</a></div>'
             + '</td>'
             + '<td style="width: 250px;">'
             + '<div class="cardInfo" id="cardInfo-' + i + '">'

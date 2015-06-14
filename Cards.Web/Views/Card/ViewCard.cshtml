@@ -5,6 +5,15 @@
 <div class="mainDiv" id="mainDiv"></div>
 
 <style type="text/css">
+    .mainTable {
+        margin: 20px auto 20px auto;
+    }
+
+    .piccards {
+        margin: 0 auto 0 auto;
+        display: block;
+        z-index: 1;
+    }
 </style>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
@@ -15,12 +24,12 @@
         document.getElementById(tag).innerHTML = txt;
     }
 
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function ($) {
         card = "@Request.Params["card"]";
-        if(card == "") {
+        if (card == "") {
             document.location.replace("/");
         } else {
-            alert("pzds");
+            initCard();
         }
     });
 

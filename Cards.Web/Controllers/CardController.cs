@@ -45,6 +45,27 @@ namespace Cards.Web.Controllers
             }
         }
 
+        public JsonResult GetInfoCardById()
+        {
+            try
+            {
+                var cardId = Convert.ToInt32(Request.Params["CardId"]);
+                var answer = "";
+                Card tmp = Context.Cards.Single(i => i.Id == cardId);
+                answer += tmp.Template + "|";
+                answer += tmp.Name + "|";
+                foreach (var ci in tmp.CardInfoes)
+                {
+                    answer += ci.Info.Type + "|" + ci.Info.Content + "|" + (ci.PositionX + 5) + "|" + (ci.PositionY + 5) + "|$";
+                }
+                return Json(answer);
+            }
+            catch (Exception)
+            {
+                return Json(false);
+            }
+        }
+
         public ActionResult EditCard()
         {
             string currentUserId = User.Identity.GetUserId();
