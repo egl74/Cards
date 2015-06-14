@@ -37,6 +37,15 @@
         } else {
             initCard();
         }
+
+        function copyToClipboard(text) {
+            window.prompt('@Resource.CopyToClipboard', text);
+        }
+
+        $('body').on('click', '#get-link', function () {
+            var url = window.location.href;
+            copyToClipboard(url);
+        });
     });
 
 </script>

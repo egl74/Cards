@@ -94,11 +94,11 @@ function initHeader() {
 // Инициализация нижнего колонтитула
 function initFooter() {
     var txt = '<table style="width: 100%;"><tbody><tr><td colspan="3" style="height: 10px;"></td></tr><tr><td>'
-        + '<button type="submit" class="btn btn-default btn-lg" onclick=""><span class="glyphicon glyphicon-link"></span></button>'
+        + '<button type="submit" class="btn btn-default btn-lg" id="get-link" onclick=""><span class="glyphicon glyphicon-link"></span></button>'
         + '</td><td>'
-        + '<button type="submit" class="btn btn-default btn-lg" onclick=""><span class="glyphicon glyphicon-qrcode"></span></button>'
+        + '<button type="submit" class="btn btn-default btn-lg" id="get-qr" onclick=""><span class="glyphicon glyphicon-qrcode"></span></button>'
         + '</td><td>'
-        + '<button type="submit" class="btn btn-default btn-lg" onclick=""><span class="glyphicon glyphicon-file"></span></button>'
+        + '<button type="submit" class="btn btn-default btn-lg" id="get-pdf" onclick=""><span class="glyphicon glyphicon-file"></span></button>'
         + '</td></tr><tr><td colspan="3" style="height: 10px;"></td></tr></tbody></table>';
     addText('viewFooter', txt);
 }

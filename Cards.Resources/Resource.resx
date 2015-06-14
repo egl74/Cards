@@ -225,4 +225,7 @@
   <data name="SeeCard" xml:space="preserve">
     <value>View Card</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Ctrl+C in order to copy to clipboard</value>
+  </data>
 </root>

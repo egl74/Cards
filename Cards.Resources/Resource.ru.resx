@@ -225,4 +225,7 @@
   <data name="SeeCard" xml:space="preserve">
     <value>Просмотр визитки</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Ctrl+C для копирования в буфер</value>
+  </data>
 </root>
