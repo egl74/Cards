@@ -23,6 +23,14 @@
 </style>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
+
+<script src="~/Scripts/pdfLogic/jspdf.js"></script>
+<script src="~/Scripts/pdfLogic/FileSaver.js"></script>
+<script src="~/Scripts/pdfLogic/addimage.js"></script>
+<script src="~/Scripts/pdfLogic/png_support.js"></script>
+<script src="~/Scripts/pdfLogic/png.js"></script>
+<script src="~/Scripts/pdfLogic/zlib.js"></script>
+
 <script src="~/Scripts/cardsLogic/cardViewLogic.js" type="text/javascript" charset="utf-8"></script>
 <script src="~/Scripts/jquery.qrcode-0.12.0.min.js"></script>
 <script type="text/javascript">
@@ -55,6 +63,12 @@
                 "size": 300,
                 "text": url
             });
+        });
+
+        $('body').on('click', '#get-pdf', function () {
+            var pdf = new jsPDF();
+            pdf.addImage(buffer.toDataURL("image/jpeg"), "jpeg", 20, 20)
+            window.location = pdf.output("datauristring")
         });
     });
 
