@@ -85,6 +85,8 @@ namespace Cards.Web.Controllers
                 var cardInfoesLength = Convert.ToInt32(Request.Params["CardInfoesLength"]);
                 String[] buf = Request.Params["CardInfoes"].Split('|');
                 Card card = cardId == 0 ? Context.Cards.Add(new Card {Template = cardTemplate, Name = cardName, UserId = User.Identity.GetUserId()}) : Context.Cards.Single(c => c.Id == cardId);
+                card.Template = cardTemplate;
+                card.Name = cardName;
                 card.CardInfoes.Clear();
                 var cis = Context.CardInfoes.Where(ci => ci.CardId == cardId);
                 foreach (var item in cis)
