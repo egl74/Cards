@@ -5,17 +5,20 @@
 @{
     if (Model.Infos.Count() != 0)
     {
-        ViewBag.Title = "Profile " + Model.Infos.First().User.Email;
+        ViewBag.Title = Resource.Profile + " " + Model.Infos.First().User.Email;
     }
     else
     {
-        ViewBag.Title = "Profile";
+        ViewBag.Title = Resource.Profile;
     }
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
     <h2>@ViewBag.Title</h2>
+</div>
+
+<div id="error-msgs" class="error-msgs">
 </div>
 
 <html>
@@ -86,6 +89,10 @@
 
         jQuery(document).ready(function ($) {
 
+            function addText(tag, txt) {
+                document.getElementById(tag).innerHTML = txt;
+            }
+
             $(function () {
                 $(document).tooltip({
                     track: true
@@ -144,8 +151,8 @@
                     foreach (var item in Enum.GetValues(typeof (FieldType)))
                     {
                         @:var option = ('<option value="@i">@item</option>');
-                                                                                            @:selector = selector.concat(option);
-                                                                                            i++;
+                                                                                                                            @:selector = selector.concat(option);
+                                                                                                                            i++;
                     }
                 }
                 selector.concat('</select>');
@@ -227,7 +234,10 @@
                         };
                     },
                     error: function () {
-                        alert('');
+                        var txt = '<div class="alert alert-danger" role="alert">'
+            + '<i class="glyphicon glyphicon-exclamation-sign"></i> @Resource.NoDelCardInfo'
+            + '</div>';
+                        addText('error-msgs', txt);
                     }
                 });
             });
@@ -253,8 +263,8 @@
                     foreach (var item in Enum.GetValues(typeof (FieldType)))
                     {
                         @:var option = ('<option value="@j">@item</option>');
-                        @:selector = selector.concat(option);
-                        j++;
+                                                        @:selector = selector.concat(option);
+                                                        j++;
                     }
                 }
                 selector.concat('</select>');
@@ -267,7 +277,7 @@
 
                 var saveBtn = $('<button type="button" class="btn btn-primary" id="save-' + rowId + '">@Resource.Save</button>').appendTo(actionTd);
 
-                saveBtn.click(function() {
+                saveBtn.click(function () {
 
                     var data = {
                         Id: rowId,
@@ -281,13 +291,19 @@
                         url: '/Account/EditInfo',
                         dataType: 'json',
                         data: data,
-                        success: function(response) {
+                        success: function (response) {
                             if (response.Message != null) {
                                 data.TypeText = $('#editType-' + rowId).children(':selected').text();
                                 tr.html(createTrEditRow(data));
-                                alert(response.Message);
+                                var txt = '<div class="alert alert-success" role="alert">'
+                    + '<i class="glyphicon glyphicon-exclamation-sign"></i> ' + response.Message
+                    + '</div>';
+                                addText('error-msgs', txt);
                             } else {
-                                alert(response);
+                                var txt = '<div class="alert alert-danger" role="alert">'
+                    + '<i class="glyphicon glyphicon-exclamation-sign"></i> ' + response
+                    + '</div>';
+                                addText('error-msgs', txt);
                             }
                         }
                     });

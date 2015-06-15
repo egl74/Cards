@@ -228,4 +228,10 @@
   <data name="CopyToClipboard" xml:space="preserve">
     <value>Ctrl+C для копирования в буфер</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="NoDelCardInfo" xml:space="preserve">
+    <value>Эта информация содержится на одной из визиток. Сначала удалите все визитки с этим полем, а затем удалите поле</value>
+  </data>
 </root>

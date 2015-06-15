@@ -228,4 +228,10 @@
   <data name="CopyToClipboard" xml:space="preserve">
     <value>Ctrl+C in order to copy to clipboard</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="NoDelCardInfo" xml:space="preserve">
+    <value>This information is contained on one of the cards. First, remove all the cards to the field, and then delete field</value>
+  </data>
 </root>
