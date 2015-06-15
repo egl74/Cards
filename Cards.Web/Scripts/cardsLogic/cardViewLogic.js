@@ -10,7 +10,7 @@ function initMainTable() {
         + '<div>'
         + '</td></tr><tr><td style="height: 10px;"></td></tr><tr><td>'
         + '<img name="piccard" id="piccard" class="piccards" src="" width="525" height="300" border="0" />'
-        + '</td></tr><tr><td style="height: 10px;"></td></tr><tr id="qr"></tr><tr><td class="tdFooter">'
+        + '</td></tr><tr><td style="height: 10px;"></td></tr><tr><td class="tdFooter">'
         + '<div class="viewFooter" id="viewFooter">'
         + '</div>'
         + '</td></tr></tbody></table>';
